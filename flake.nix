@@ -20,10 +20,10 @@
 	 inherit system;
 	 modules = [
 	  ({ config, pkgs, ... }: {environment.systemPackages = with pkgs; [
-		vim
+		#vim
 		tree
 		git
-		google-chrome
+		#google-chrome
 		vscodium
 		fastfetch
 		neovim
