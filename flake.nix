@@ -23,6 +23,7 @@
 		vim
 		tree
 		git
+		google-chrome
 		vscodium
 		fastfetch
 		neovim
