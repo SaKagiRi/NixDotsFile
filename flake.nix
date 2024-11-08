@@ -7,47 +7,34 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs:
+  outputs = { self, nixpkgs, home-manager, ... }: 
   let
-  	system = "x86_64-linux";
-  	pkgs = inputs.nixpkgs.legacyPackages.${system};
+	pkgs = nixpkgs.legacyPackages.x86_64-linux;
   in
   {
-  
-	packages.x86_64-linux.default = pkgs.hello;
 
-	nixosConfigurations.sakagiri = inputs.nixpkgs.lib.nixosSystem {
-	 inherit system;
-	 modules = [
-	  ({ config, pkgs, ... }: {environment.systemPackages = with pkgs; [
-		#vim
-		tree
-		git
-		#google-chrome
-		vscodium
-		fastfetch
-		neovim
-		tmux
-		wget
-		vesktop
-		miru
-		brave
-		curl
-		rofi-wayland
-		gcc
-		roslyn
-		wine
-		notify-sharp
-		pipx
-		kitty
-		sl
-		cmatrix
+    packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
+
+    packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
+
+    nixosConfigurations = {
+	nixos = nixpkgs.lib.nixosSystem {
+	modules = [
+	 ./Nixconf/configuration.nix
+	 #home-manager.nixosModules.home-manager
+
+	 { environment.systemPackages = (with pkgs; [
 		htop
-	  ];
-	  })
-	  ./configuration.nix
-	 ];
+		curl
+		neovim
+		nodejs_22
+	  ]) ++ ([
+		
+	  ]);}
+
+	];
 	};
+    };
 
   };
 }
