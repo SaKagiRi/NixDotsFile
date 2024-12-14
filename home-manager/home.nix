@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, lib, ... }:
 let
   #...
 in
@@ -6,40 +6,45 @@ in
   imports = [
     ./conf/shell.nix
     ./conf/vim.nix
+    ./conf/tmux.nix
+    ./conf/code.nix
+    ./conf/nvim.nix
   ];
 
   home.username = "knakto";
   home.homeDirectory = "/home/knakto";
 
   home.packages = with pkgs; [
+  	valgrind
     tree
-    vim
     wine
+    yazi
+    hyprland
+    lazygit
+    zip
+    openssh
+    lighttpd
+    putty
+    # gcc
+	clang
+    glibc.static
+    nasm
+	fzf
+	bat
+	tldr
+	zoxide
+	cmatrix
+	remmina
   ];
-
-  /*home.file = {
-    ".vimrc".text = ''
-	set number 
-	set smartindent
-	syntax enable
-	colo elflord
-	highlight LineNr ctermfg=LightGray
-	highlight Comment ctermfg=Gray
-	highlight String ctermfg=Green
-
-	let g:user42 = 'knakto'
-	let g:mail42 = 'knakto@student.42.fr'
-	'';
-    ".bashrc".text = ''
-   	#alias vim="nvim"
-	alias la='ls -la'
-	'';
-  };*/
 
   programs.git = {
     enable = true;
     userName = "kita";
     userEmail = "kasichonooo@gmail.com";
+    extraConfig = ''
+      [PUSH]
+       default = current
+    '';
   };
 
   home.stateVersion = "23.11";

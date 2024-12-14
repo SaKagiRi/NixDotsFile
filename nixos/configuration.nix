@@ -42,12 +42,23 @@
     LC_TIME = "th_TH.UTF-8";
   };
 
+  # add swap file
+  swapDevices = [{
+    device = "/swapfile";
+    size = 8 * 1024; # 16GB
+  }];
+
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
+
+  # Enable the gnome Desktop Environment.
+  # services.xserver.desktopManager.gnome.enable = true;
+  # services.xserver.displayManager.gdm.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -108,7 +119,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -125,4 +136,18 @@
   system.stateVersion = "24.05"; # Did you read the comment?
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  services.avahi = {
+    nssmdns = true;
+    enable = true;
+    ipv4 = true;
+    ipv6 = true;
+    publish = {
+      #enable = true;
+      addresses = true;
+      workstation = true;
+    };
+  };
+
+  services.lighttpd.enable = true;
 }
