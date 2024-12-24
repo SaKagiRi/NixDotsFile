@@ -1,55 +1,27 @@
-{ config, pkgs, inputs, lib, ... }:
-let
-  #...
-in
-{
-  imports = [
-    ./conf/shell.nix
-    ./conf/vim.nix
-    ./conf/tmux.nix
-    ./conf/code.nix
-    ./conf/nvim.nix
-  ];
+{ pkgs, lib, ... }:
 
+{
   home.username = "knakto";
   home.homeDirectory = "/home/knakto";
-
-  home.packages = with pkgs; [
-  	valgrind
-    tree
-    wine
-    yazi
-    hyprland
-    lazygit
-    zip
-    openssh
-    lighttpd
-    putty
-    # gcc
-	clang
-    glibc.static
-    nasm
-	fzf
-	bat
-	tldr
-	zoxide
-	cmatrix
-	remmina
+  home.stateVersion = "24.11";
+  imports = [
+    ./conf/neovim.nix
+    ./conf/terminal.nix
   ];
-
-  programs.git = {
-    enable = true;
-    userName = "kita";
-    userEmail = "kasichonooo@gmail.com";
-    extraConfig = ''
-      [PUSH]
-       default = current
-    '';
-  };
-
-  home.stateVersion = "23.11";
-
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "obsidian"
+	"steam-unwrapped"
+	"steam"
+  ];
+  home.packages = with pkgs; [
+    neofetch
+    vesktop
+	obsidian
+    nixd
+    clang
+    clang-tools
+	xwayland
+	miru
+  ];
   programs.home-manager.enable = true;
-
-  home.enableNixpkgsReleaseCheck = false;
 }
