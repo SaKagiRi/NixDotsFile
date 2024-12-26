@@ -63,6 +63,7 @@
 				toggleterm-nvim
 				neogit
 				obsidian-nvim
+				todo-comments-nvim
 			(fromGitHub "5726c4e291224181903e960119a11e20ac677a0a" "akinsho/bufferline.nvim")
 
 			#completions
@@ -250,6 +251,10 @@
 			}
 		})
 		vim.opt.conceallevel = 2  -- or 2, depending on your preference
+
+		require("todo-comments").setup()
+		vim.keymap.set("n", "<leader>fr", ":FZF /<CR>", { desc = "find in root" })
+		vim.keymap.set("n", "<leader>fh", ":FZF ~<CR>", { desc = "find in home" })
 EOF
 			'';
 		vimAlias = true;

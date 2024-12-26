@@ -1,12 +1,11 @@
-{
-	pkgs,
-	...
+{ ...
 }:
 
 {
+
   programs.zsh = {
     enable = true;
-	autosuggestion.enable = true;
+    autosuggestion.enable = true;
     enableCompletion = true;
 
     history = {
@@ -23,14 +22,21 @@
         "ENABLE_VPN=true sudo --preserve-env ENABLE_VPN nixos-rebuild switch";
       vpn-off = "sudo nixos-rebuild switch";
       icat = "kitty +kitten icat";
-	  ls = "eza";
-	  "ls -a" = "eza -a";
-	  nixhome = "home-manager switch --flake ~/knakto/Nix";
-	  wayland = "export XDG_SESSION_TYPE=wayland";
-	  x11 = "export XDG_SESSION_TYPE=x11";
+      ls = "eza";
+      la = "eza -a";
+      nixhome = "home-manager switch --flake ~/knakto/Nix";
+      wayland = "export XDG_SESSION_TYPE=wayland";
+      x11 = "export XDG_SESSION_TYPE=x11";
+      sound = "amixer set Master";
+	  cd = "z";
+	  cat = "bat";
+	  mans = "tldr";
     };
 
     initExtra = ''
+			fastfetch
+			eval "$(fzf --zsh)"
+			eval "$(zoxide init zsh)"
     '';
 
     oh-my-zsh = {

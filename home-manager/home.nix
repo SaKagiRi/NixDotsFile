@@ -6,7 +6,9 @@
   home.stateVersion = "24.11";
   imports = [
     ./conf/neovim.nix
-    ./conf/terminal.nix
+    ./conf/zsh.nix
+	./conf/git.nix
+	./conf/fastfetch.nix
   ];
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "obsidian"
@@ -22,6 +24,26 @@
     clang-tools
 	xwayland
 	miru
+	htop
+	fastfetch
+		#git
+	tmux
+	wget
+	curl
+	cmatrix
+	tree
+	wine
+	mesa
+	glfw
+	ripgrep
+	python3
+	fzf
+	zoxide
+	bat
+	tldr
+		#waydroid
+		#steam
+		#steam-run-native
   ];
   programs.home-manager.enable = true;
 }
