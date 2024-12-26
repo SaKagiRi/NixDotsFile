@@ -65,6 +65,7 @@
 				obsidian-nvim
 				todo-comments-nvim
 			(fromGitHub "5726c4e291224181903e960119a11e20ac677a0a" "akinsho/bufferline.nvim")
+			(fromGitHub "9e816c72712ac72aa576b18a14a5427578c90ff7" "Diogo-ss/42-header.nvim")
 
 			#completions
 				cmp-nvim-lsp
@@ -87,7 +88,6 @@
 
 			colorscheme witch-dark
 			nnoremap <C-n> :Neotree toggle<CR> " --neotree
-			nnoremap <C-s> :w<CR> " --save
 			nnoremap <C-h> <C-w>h
 			nnoremap <C-l> <C-w>l
 			nnoremap <C-j> <C-w>j
@@ -95,6 +95,7 @@
 
 			lua <<EOF
 			vim.g.mapleader = " "
+			vim.keymap.set({ "n", "i", "v" }, "<C-s>", "<ESC>:w<CR>", { desc = "save" })
 			require("nvim-web-devicons").setup({default = true,})
 			require("neo-tree").setup({
 				window = {
@@ -255,6 +256,13 @@
 		require("todo-comments").setup()
 		vim.keymap.set("n", "<leader>fr", ":FZF /<CR>", { desc = "find in root" })
 		vim.keymap.set("n", "<leader>fh", ":FZF ~<CR>", { desc = "find in home" })
+
+		require("42header").setup({
+			default_map = true,
+			auto_update = false,
+			user = "knakto",
+			mail = "kasichonooo@gmail.com",
+		})
 EOF
 			'';
 		vimAlias = true;
