@@ -31,6 +31,7 @@
 	  cd = "z";
 	  cat = "bat";
 	  mans = "tldr";
+	  norm = "/home/knakto/.local/share/pipx/venvs/norminette/bin/norminette";
     };
 
     initExtra = ''

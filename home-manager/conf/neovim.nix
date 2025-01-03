@@ -87,7 +87,6 @@
 			set			listchars+=eol:↴
 
 			colorscheme witch-dark
-			nnoremap <C-n> :Neotree toggle<CR> " --neotree
 			nnoremap <C-h> <C-w>h
 			nnoremap <C-l> <C-w>l
 			nnoremap <C-j> <C-w>j
@@ -254,8 +253,11 @@
 		vim.opt.conceallevel = 2  -- or 2, depending on your preference
 
 		require("todo-comments").setup()
-		vim.keymap.set("n", "<leader>fr", ":FZF /<CR>", { desc = "find in root" })
-		vim.keymap.set("n", "<leader>fh", ":FZF ~<CR>", { desc = "find in home" })
+
+		vim.keymap.set("n", "<leader>nr", ":Neotree /<CR>", { desc = "find in root" })
+		vim.keymap.set("n", "<leader>nh", ":Neotree ~/<CR>", { desc = "find in home" })
+		vim.keymap.set("n", "<leader>nn", ":Neotree ./", { desc = "move to" })
+		vim.keymap.set("n", "<C-n>", ":Neotree toggle<CR>", { desc = "Neotree" })
 
 		require("42header").setup({
 			default_map = true,
