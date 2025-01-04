@@ -14,6 +14,7 @@
     "obsidian"
 	"steam-unwrapped"
 	"steam"
+	"copilot.vim"
   ];
   home.packages = with pkgs; [
     neofetch

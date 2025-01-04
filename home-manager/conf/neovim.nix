@@ -71,7 +71,8 @@
 				cmp-nvim-lsp
 				nvim-cmp
 				luasnip
-			(fromGitHub "87038123804796ca7af20d1b71c3428d858a9124" "github/copilot.vim")
+				copilot-cmp
+				copilot-vim
 		];
 		extraConfig = ''
 			set			smartindent
@@ -217,17 +218,31 @@
 			mapping = cmp.mapping.preset.insert({
 			  ["<C-b>"] = cmp.mapping.scroll_docs(-4),
 			  ["<C-f>"] = cmp.mapping.scroll_docs(4),
-			  ["<C-Space>"] = cmp.mapping.complete(),
+			  --["<C-Space>"] = cmp.mapping.complete(),
 			  ["<C-e>"] = cmp.mapping.abort(),
-			  ["<CR>"] = cmp.mapping.confirm({ select = true }),
+			  ["<C-CR>"] = cmp.mapping.confirm({ select = true }),
 			}),
 			sources = cmp.config.sources({
+			  { name = "copilot" },
 			  { name = "nvim_lsp" },
-			  { name = "luasnip" }, -- For luasnip users.
+			  { name = "nvim_lua" },
+			  --{ name = "path" },
+			  { name = "luasnip" },
 			}, {
 			  { name = "buffer" },
 			}),
 		  })
+
+		require("copilot_cmp").setup()
+		require("copilot").setup({
+			  suggestion = { enabled = false },
+			  panel = { enabled = false },
+		})
+		vim.keymap.set('i', '<C-Space>', 'copilot#Accept("\\<CR>")', { expr = true, replace_keycodes = false })
+
+		vim.keymap.set("n", "<leader>cc", ":Commentary<CR>", { desc = "comment" })
+
+		vim.g.copilot_no_tab_map = true
 
 		local null_ls = require("null-ls")
 		null_ls.setup({
