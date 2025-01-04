@@ -44,6 +44,7 @@
 		#waydroid
 		#steam
 		#steam-run-native
+	nodejs_22
   ];
   programs.home-manager.enable = true;
 }

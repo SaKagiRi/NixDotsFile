@@ -71,6 +71,7 @@
 				cmp-nvim-lsp
 				nvim-cmp
 				luasnip
+			(fromGitHub "87038123804796ca7af20d1b71c3428d858a9124" "github/copilot.vim")
 		];
 		extraConfig = ''
 			set			smartindent
