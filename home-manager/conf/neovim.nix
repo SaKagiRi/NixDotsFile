@@ -218,9 +218,9 @@
 			mapping = cmp.mapping.preset.insert({
 			  ["<C-b>"] = cmp.mapping.scroll_docs(-4),
 			  ["<C-f>"] = cmp.mapping.scroll_docs(4),
-			  --["<C-Space>"] = cmp.mapping.complete(),
+			  ["<C-S>"] = cmp.mapping.complete(),
 			  ["<C-e>"] = cmp.mapping.abort(),
-			  ["<C-CR>"] = cmp.mapping.confirm({ select = true }),
+			  ["<C-z>"] = cmp.mapping.confirm({ select = true }),
 			}),
 			sources = cmp.config.sources({
 			  { name = "copilot" },
@@ -239,10 +239,8 @@
 			  panel = { enabled = false },
 		})
 		vim.keymap.set('i', '<C-Space>', 'copilot#Accept("\\<CR>")', { expr = true, replace_keycodes = false })
-
-		vim.keymap.set("n", "<leader>cc", ":Commentary<CR>", { desc = "comment" })
-
 		vim.g.copilot_no_tab_map = true
+		vim.g.copilot_cr_tab_map = true
 
 		local null_ls = require("null-ls")
 		null_ls.setup({
