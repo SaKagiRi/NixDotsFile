@@ -5,6 +5,7 @@
   home.homeDirectory = "/home/knakto";
   home.stateVersion = "24.11";
   imports = [
+	./conf/tmux.nix
     ./conf/neovim.nix
     ./conf/zsh.nix
 	./conf/git.nix
@@ -28,7 +29,7 @@
 	htop
 	fastfetch
 		#git
-	tmux
+		#tmux
 	wget
 	curl
 	cmatrix
