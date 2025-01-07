@@ -16,6 +16,7 @@
 	"steam-unwrapped"
 	"steam"
 	"copilot.vim"
+	"codeium"
   ];
   home.packages = with pkgs; [
     neofetch

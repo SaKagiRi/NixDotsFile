@@ -73,6 +73,10 @@
 				luasnip
 				copilot-cmp
 				copilot-vim
+				CopilotChat-nvim
+				#codeium-nvim
+				#(fromGitHub "87038123804796ca7af20d1b71c3428d858a9124" "github/copilot.vim")
+				#(fromGitHub "96dcb866c3491bb0aacd46d2b5232176bb02f2a0" "SilasMarvin/lsp-ai")
 		];
 		extraConfig = ''
 			set			smartindent
@@ -223,16 +227,20 @@
 			  ["<CR>"] = cmp.mapping.confirm({ select = true }),
 			}),
 			sources = cmp.config.sources({
-			  { name = "copilot" },
+			{ name = "copilot" },
+			--{ name = "codeium" },
 			  { name = "nvim_lsp" },
 			  { name = "nvim_lua" },
-			  --{ name = "path" },
-			  { name = "luasnip" },
+			--{ name = "path" },
+			--{ name = "luasnip" },
 			}, {
 			  { name = "buffer" },
 			}),
 		  })
 
+		--require("codeium").setup()
+
+		require("CopilotChat").setup()
 		require("copilot_cmp").setup()
 		require("copilot").setup({
 			  suggestion = { enabled = false },
@@ -240,6 +248,7 @@
 		})
 		vim.keymap.set('i', '<C-Space>', 'copilot#Accept("\\<CR>")', { expr = true, replace_keycodes = false })
 		vim.g.copilot_no_tab_map = true
+		vim.g.copilot_assume_mapped = true
 		vim.g.copilot_cr_tab_map = true
 
 		local null_ls = require("null-ls")
