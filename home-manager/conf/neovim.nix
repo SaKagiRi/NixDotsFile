@@ -241,6 +241,7 @@
 		require("codeium").setup()
 
 		require("CopilotChat").setup()
+		vim.keymap.set({"n", "i", "v"}, "<C-c>", ":CopilotChatToggle<CR>", { desc = "copilot" })
 		require("copilot_cmp").setup()
 		--require("copilot").setup({
 		--	  suggestion = { enabled = false },
