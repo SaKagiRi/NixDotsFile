@@ -58,6 +58,10 @@
 				diffview-nvim
 				fzf-lua
 				mini-pick
+				dressing-nvim
+				img-clip-nvim
+				render-markdown-nvim
+				markdown-nvim
 
 			#ultilitiles
 				toggleterm-nvim
@@ -74,9 +78,7 @@
 				copilot-cmp
 				#copilot-vim
 				CopilotChat-nvim
-				codeium-nvim
-				#(fromGitHub "87038123804796ca7af20d1b71c3428d858a9124" "github/copilot.vim")
-				#(fromGitHub "96dcb866c3491bb0aacd46d2b5232176bb02f2a0" "SilasMarvin/lsp-ai")
+				ChatGPT-nvim
 		];
 		extraConfig = ''
 			set			smartindent
@@ -155,15 +157,48 @@
 			})
 			local lspconfig = require("lspconfig")
 			--lspconfig.lua_ls.setup({})
+			lspconfig.marksman.setup{}
 			lspconfig.clangd.setup({
+				capabilities = {
+					offsetEncoding = "utf-16",
+				},
 				cmd = {"/home/knakto/.nix-profile/bin/clangd"}
 			})
+
 			lspconfig.nil_ls.setup({
 				cmd = {"/home/knakto/.nix-profile/bin/nixd"}
 			})
-			vim.keymap.set("n", "J", vim.lsp.buf.hover, { desc = "hover"})
+
+			local function custom_hover()
+			    local clients = vim.lsp.get_active_clients()
+				  if #clients == 0 then
+				print("No LSP server attached")
+				return
+			  end
+			  local opts = {
+				border = "rounded",
+				max_width = 80,
+				max_height = 20,
+				focusable = false,
+				style = "minimal",
+				transparency = 20,
+			  }
+			  vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#121928", fg = "#50bcef" })
+			  vim.lsp.buf.hover(opts)
+			end
+			vim.keymap.set('n', 'J', custom_hover, { desc = "Hover to show function details with custom UI" })
+
+			require("markdown").setup()
+
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "definition" })
 			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "code_action" })
+			vim.diagnostic.config({
+			  virtual_text = true,
+			  signs = true,
+			  underline = true,
+			  update_in_insert = false,
+			  severity_sort = true,
+			})
 
 			vim.opt.termguicolors = true
 			require("bufferline").setup({
@@ -238,8 +273,6 @@
 			}),
 		  })
 
-		require("codeium").setup()
-
 		require("CopilotChat").setup()
 		vim.keymap.set({"n", "i", "v"}, "<C-c>", ":CopilotChatToggle<CR>", { desc = "copilot" })
 		require("copilot_cmp").setup()
@@ -274,7 +307,7 @@
 			  },
 			}
 		})
-		vim.opt.conceallevel = 2  -- or 2, depending on your preference
+		vim.opt.conceallevel = 2
 
 		require("todo-comments").setup()
 
@@ -289,6 +322,31 @@
 			user = "knakto",
 			mail = "kasichonooo@gmail.com",
 		})
+
+		--require("chatgpt").setup({
+		--	api_key_cmd = "secret-tool lookup for nvim",
+		--})
+
+		function ManUnderCursor()
+			local word = vim.fn.expand("<cword>") -- ดึงคำที่อยู่ใต้เคอร์เซอร์
+			if word and word ~= "" then
+				vim.cmd("Man " .. word) -- เรียกใช้ :Man ตามคำ
+			else
+				print("No word under cursor")
+			end
+		end
+		vim.keymap.set('n', 'K', ManUnderCursor, { desc = "Open man page for word under cursor" })
+
+		vim.api.nvim_set_keymap('n', '<leader>gp', ':lua SearchFunctionUnderCursor()<CR><ESC>', { noremap = true, silent = true })
+
+		function SearchFunctionUnderCursor()
+		  local current_word = vim.fn.expand('<cword>')
+		  require('telescope.builtin').live_grep({
+			default_text = current_word,  -- ส่งชื่อฟังก์ชันที่ cursor อยู่
+			prompt_title = 'Search Function: ' .. current_word,  -- ตั้งชื่อ prompt
+		  })
+		end
+
 EOF
 			'';
 		vimAlias = true;
