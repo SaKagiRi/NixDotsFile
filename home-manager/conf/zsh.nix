@@ -18,6 +18,9 @@
       v = "nvim";
       c = "clear";
       open = "xdg-open";
+      vpn-on =
+        "ENABLE_VPN=true sudo --preserve-env ENABLE_VPN nixos-rebuild switch";
+      vpn-off = "sudo nixos-rebuild switch";
       icat = "kitty +kitten icat";
       ls = "eza";
       la = "eza -a";
@@ -29,8 +32,6 @@
 	  cat = "bat";
 	  mans = "tldr";
 	  norm = "/home/knakto/.local/share/pipx/venvs/norminette/bin/norminette";
-	  vpn-on = "sudo openvpn --config ~/knakto/Nix/public/knakto.ovpn --daemon";
-	  vpn-off = ''sudo kill $(ps aux | grep openvpn | awk '$1 == "root" {print $2}')'';
     };
 
     initExtra = ''
