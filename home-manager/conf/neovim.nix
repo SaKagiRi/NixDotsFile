@@ -337,7 +337,7 @@
 		end
 		vim.keymap.set('n', 'K', ManUnderCursor, { desc = "Open man page for word under cursor" })
 
-		vim.api.nvim_set_keymap('n', '<leader>gp', ':lua SearchFunctionUnderCursor()<CR><ESC>', { noremap = true, silent = true })
+		vim.api.nvim_set_keymap('n', 'gp', ':lua SearchFunctionUnderCursor()<CR><ESC>', { noremap = true, silent = true })
 
 		function SearchFunctionUnderCursor()
 		  local current_word = vim.fn.expand('<cword>')
