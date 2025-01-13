@@ -320,7 +320,7 @@
 			default_map = true,
 			auto_update = false,
 			user = "knakto",
-			mail = "kasichonooo@gmail.com",
+			mail = "knakto@student.42bangkok.com",
 		})
 
 		--require("chatgpt").setup({
