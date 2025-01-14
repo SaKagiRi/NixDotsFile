@@ -48,6 +48,8 @@
 		#steam
 		#steam-run-native
 	nodejs_22
+	xorg.libX11  # Include the libX11 library
+	kitty
   ];
   programs.home-manager.enable = true;
 }

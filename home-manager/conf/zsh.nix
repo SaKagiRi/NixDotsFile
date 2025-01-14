@@ -31,6 +31,7 @@
 	  norm = "/home/knakto/.local/share/pipx/venvs/norminette/bin/norminette";
 	  vpn-on = "sudo openvpn --config ~/knakto/Nix/public/knakto.ovpn --daemon";
 	  vpn-off = ''sudo kill $(ps aux | grep openvpn | awk '$1 == "root" {print $2}')'';
+	  develop="nix develop --command zsh";
     };
 
     initExtra = ''
