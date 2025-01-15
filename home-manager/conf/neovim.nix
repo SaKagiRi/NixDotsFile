@@ -66,9 +66,9 @@
 			#ultilitiles
 				toggleterm-nvim
 				neogit
-				obsidian-nvim
+				#obsidian-nvim
 				todo-comments-nvim
-			(fromGitHub "5726c4e291224181903e960119a11e20ac677a0a" "akinsho/bufferline.nvim")
+				bufferline-nvim
 			(fromGitHub "9e816c72712ac72aa576b18a14a5427578c90ff7" "Diogo-ss/42-header.nvim")
 
 			#completions
@@ -153,40 +153,21 @@
 
 			require("mason").setup()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "clangd", "nil_ls" },
+				--ensure_installed = { "lua_ls", "clangd", "nil_ls" },
+				automatic_installation = true,
 			})
 			local lspconfig = require("lspconfig")
-			--lspconfig.lua_ls.setup({})
+			lspconfig.lua_ls.setup({})
 			lspconfig.marksman.setup{}
 			lspconfig.clangd.setup({
-				capabilities = {
-					offsetEncoding = "utf-16",
-				},
 				cmd = {"/home/knakto/.nix-profile/bin/clangd"}
 			})
-
 			lspconfig.nil_ls.setup({
 				cmd = {"/home/knakto/.nix-profile/bin/nixd"}
 			})
 
-			local function custom_hover()
-			    local clients = vim.lsp.get_active_clients()
-				  if #clients == 0 then
-				print("No LSP server attached")
-				return
-			  end
-			  local opts = {
-				border = "rounded",
-				max_width = 80,
-				max_height = 20,
-				focusable = false,
-				style = "minimal",
-				transparency = 20,
-			  }
-			  vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#121928", fg = "#50bcef" })
-			  vim.lsp.buf.hover(opts)
-			end
-			vim.keymap.set('n', 'J', custom_hover, { desc = "Hover to show function details with custom UI" })
+			vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#121928", fg = "#50bcef" })
+			vim.keymap.set('n', 'J', vim.lsp.buf.hover, { desc = "Hover to show function details with custom UI" })
 
 			require("markdown").setup()
 
@@ -262,12 +243,12 @@
 			  ["<CR>"] = cmp.mapping.confirm({ select = true }),
 			}),
 			sources = cmp.config.sources({
-			{ name = "copilot" },
+			--{ name = "copilot" },
 			--{ name = "codeium" },
 			  { name = "nvim_lsp" },
 			  { name = "nvim_lua" },
 			--{ name = "path" },
-			--{ name = "luasnip" },
+			{ name = "luasnip" },
 			}, {
 			  { name = "buffer" },
 			}),
@@ -299,15 +280,15 @@
 		require("fzf-lua").setup()
 		vim.keymap.set("n", '<C-g>', ":Neogit<CR>", { desc = "Neogit" })
 
-		require("obsidian").setup({
-			workspaces = {
-			  {
-				name = "personal",
-				path = "~/Documents/Obsidian",
-			  },
-			}
-		})
-		vim.opt.conceallevel = 2
+		--require("obsidian").setup({
+		--	workspaces = {
+		--	  {
+		--		name = "personal",
+		--		path = "~/Documents/Obsidian",
+		--	  },
+		--	}
+		--})
+		--vim.opt.conceallevel = 2
 
 		require("todo-comments").setup()
 
@@ -329,11 +310,7 @@
 
 		function ManUnderCursor()
 			local word = vim.fn.expand("<cword>") -- ดึงคำที่อยู่ใต้เคอร์เซอร์
-			if word and word ~= "" then
-				vim.cmd("Man " .. word) -- เรียกใช้ :Man ตามคำ
-			else
-				print("No word under cursor")
-			end
+				vim.cmd("Man " .. word)
 		end
 		vim.keymap.set('n', 'K', ManUnderCursor, { desc = "Open man page for word under cursor" })
 

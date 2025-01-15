@@ -1,55 +1,60 @@
-{ pkgs, lib, ... }:
-
 {
-  home.username = "knakto";
-  home.homeDirectory = "/home/knakto";
-  home.stateVersion = "24.11";
-  imports = [
-	./conf/tmux.nix
-    ./conf/neovim.nix
-    ./conf/zsh.nix
-	./conf/git.nix
-	./conf/fastfetch.nix
-  ];
+  nixpkgs,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
+
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "obsidian"
-	"steam-unwrapped"
-	"steam"
 	"copilot.vim"
-	"codeium"
   ];
-  home.packages = with pkgs; [
-    neofetch
-    vesktop
-	obsidian
-    nixd
-    clang
-    clang-tools
-	xwayland
+  imports = [
+    ./conf/neovim.nix
+    ./conf/tmux.nix
+    ./conf/zsh.nix
+    ./conf/git.nix
+    ./conf/fastfetch.nix
+	./conf/environment.nix
+	./conf/kitty.nix
+  ];
+  home = {
+    username = "knakto";
+    homeDirectory = "/home/knakto";
+    stateVersion = "24.11";
+    packages = with pkgs;[
+	pciutils
+	libGL
+	mesa
+	gnumake42
+	cmake
+	docker
+	podman
+	devbox
+	gparted
+	clang
+	clang-tools
+	vesktop
+	nixd
 	miru
 	htop
-	fastfetch
-		#git
-		#tmux
-	wget
+	btop
 	curl
-	cmatrix
 	tree
 	wine
-	mesa
-	glfw
 	ripgrep
 	python3
 	fzf
 	zoxide
 	bat
 	tldr
-		#waydroid
-		#steam
-		#steam-run-native
-	nodejs_22
-	xorg.libX11  # Include the libX11 library
-	kitty
-  ];
-  programs.home-manager.enable = true;
+	xwayland
+	hyprland
+	wayland
+	cargo
+	zip
+	unzip
+    ];
+  };
 }
