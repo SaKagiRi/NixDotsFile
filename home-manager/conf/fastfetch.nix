@@ -7,12 +7,12 @@
 		enable = true;
 		settings = {
 			logo = {
-				source = "/home/knakto/knakto/Nix/public/nixos.png";
-				height = 12;
+				source = "~/.face";
+				height = 16;
 				padding = {
 					left = 2;
 					right = 2;
-					top = 3;
+					top = 2;
 				};
 			};
 			display = {

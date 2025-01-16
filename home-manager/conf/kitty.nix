@@ -7,7 +7,7 @@
 	  enable = true;
 	  extraConfig = ''
 		ont_family     FiraCode Nerd Font Mono
-		font_size       14.0
+		font_size       10.0
 
 		window_margin_width     10
 		background_image        /home/knakto/knakto/Nix/assets/background/Anime-Girl-Rain.png

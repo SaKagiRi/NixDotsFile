@@ -2,12 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, outputs, ... }:
+{ config, pkgs, outputs, inputs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./conf/stylix.nix
     ];
 
  nixpkgs = {
@@ -15,6 +16,38 @@
 		outputs.overlays.additions
 	];
 };
+
+	programs.hyprland = {
+		enable = true;
+		package = inputs.hyprland.packages.x86_64-linux.hyprland;
+	};
+
+	hardware = {
+		opengl.enable = true;
+	};
+
+	services.displayManager = {
+		sddm = {
+			enable = true;
+			wayland.enable = true;
+		};
+		autoLogin = {
+			enable = true;
+			user = "knakto";
+		};
+	};
+
+fonts.packages = with pkgs; [
+	noto-fonts
+	noto-fonts-cjk-sans
+	noto-fonts-emoji
+	liberation_ttf
+	fira-code
+	fira-code-symbols
+	mplus-outline-fonts.githubRelease
+	dina-font
+	proggyfonts
+];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -50,17 +83,17 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services.xserver.enable = false;
 
   # Enable the XFCE Desktop Environment.
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.xfce.enable = true;
+  #services.xserver.displayManager.lightdm.enable = false;
+  #services.xserver.desktopManager.xfce.enable = true;
 
   # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
+  #services.xserver.xkb = {
+  #  layout = "us";
+  #  variant = "";
+  #};
 
   # Enable CUPS to print documents.
   services.printing.enable = true;

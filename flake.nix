@@ -4,9 +4,15 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+	stylix.url = "github:danth/stylix";
+	hyprland.url = "github:hyprwm/Hyprland";
+	hyprland-plugins = {
+		url = "github:hyprwm/hyprland-plugins";
+		inputs.hyprland.follows = "hyprland";
+	};
     home-manager = {
-	url = "github:nix-community/home-manager";
-	inputs.nixpkgs.follows = "nixpkgs";
+		url = "github:nix-community/home-manager";
+		inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -30,7 +36,9 @@
 	    knakto = home-manager.lib.homeManagerConfiguration {
 			pkgs = pkgs;
 		    extraSpecialArgs = { inherit inputs outputs; };
-		    modules = [ ./home-manager/home.nix ];	
+		    modules = [
+				./home-manager/home.nix
+			];	
 	    };
     };
 
@@ -41,6 +49,7 @@
 		modules = [
 			./nixos/configuration.nix
 			home-manager.nixosModules.home-manager
+			inputs.stylix.nixosModules.stylix
 			nixos-hardware.nixosModules.lenovo-thinkpad-x390
 			{
 				hardware.bluetooth = {

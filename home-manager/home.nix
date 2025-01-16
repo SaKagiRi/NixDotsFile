@@ -6,7 +6,6 @@
   ...
 }:
 {
-
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
 	"copilot.vim"
   ];
@@ -18,12 +17,19 @@
     ./conf/fastfetch.nix
 	./conf/environment.nix
 	./conf/kitty.nix
+	./conf/hyprland.nix
   ];
   home = {
     username = "knakto";
     homeDirectory = "/home/knakto";
     stateVersion = "24.11";
     packages = with pkgs;[
+	nautilus
+	swaybg
+	sway
+	handlr
+	hyprshot
+	wleave
 	pciutils
 	libGL
 	mesa
@@ -47,11 +53,13 @@
 	python3
 	fzf
 	zoxide
+	eza
 	bat
 	tldr
 	xwayland
 	hyprland
 	wayland
+			#rofi-wayland
 	cargo
 	zip
 	unzip
