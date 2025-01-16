@@ -115,6 +115,8 @@ in
 				"$mod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
 				# Screenshot
 				"$mod, Print, exec, hyprshot -m region"
+				#Rofi
+				"$mod, B, exec, kill $(ps -la | grep waybar | awk '{print $4}') || waybar"
 				#Wallpapers
 				"CTRL, 1, exec, hyprctl hyprpaper wallpaper ,${w1}"
 				"CTRL, 2, exec, hyprctl hyprpaper wallpaper ,${w2}"

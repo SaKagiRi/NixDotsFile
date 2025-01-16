@@ -24,6 +24,7 @@
     homeDirectory = "/home/knakto";
     stateVersion = "24.11";
     packages = with pkgs;[
+	killall
 	nautilus
 	swaybg
 	sway
