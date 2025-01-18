@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./conf/stylix.nix
+      ./conf/steam.nix
     ];
 
  nixpkgs = {
@@ -48,6 +49,17 @@ fonts.packages = with pkgs; [
 	dina-font
 	proggyfonts
 ];
+
+	boot.kernelPackages = pkgs.linuxPackages; # (this is the default) some amdgpu issues on 6.10
+	hardware.xone.enable = true; # support for the xbox controller USB dongle
+	services.getty.autologinUser = "knakto";
+	environment.loginShellInit = ''
+			[[ "$(tty)" = "/dev/tty1" ]] && ./gs.sh
+			'';
+
+	#services.throttled.enable = lib.mkDefault true;
+	#hardware.graphics.extraPackages32.enable = true;
+	hardware.graphics.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;

@@ -75,7 +75,8 @@ in
 			};
 			exec-once = [
 				"hyprlock || hyprctl dispatch exit"
-				"waybar"
+				#"waybar"
+				"hyprpaper"
 				"wl-paste --watch cliphist store"
 				"fcitx5"
 			];
@@ -117,6 +118,8 @@ in
 				"$mod, Print, exec, hyprshot -m region"
 				#Rofi
 				"$mod, B, exec, kill $(ps -la | grep waybar | awk '{print $4}') || waybar"
+				#Gamemode
+				"$mod SHIFT, G, exec, /home/knakto/knakto/Nix/assets/script/gamemode.sh"
 				#Wallpapers
 				"CTRL, 1, exec, hyprctl hyprpaper wallpaper ,${w1}"
 				"CTRL, 2, exec, hyprctl hyprpaper wallpaper ,${w2}"
@@ -348,7 +351,11 @@ in
 				format-disconnected = "Disconnected ⚠︎";
 			};
 			bluetooth = {
-				format = "ᛒ {}";
+					format = "ᛒ {}";
+					tooltip = true;
+					tooltip-format = "- {controller_alias}\t{controller_address}\n- {device_alias}\t{device_address}";
+				format-disabled = "ᛒ";
+				format-connected = "ᛒ";
 			};
 			pulseaudio = {
 				format = "{icon} {volume}%";

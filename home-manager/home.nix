@@ -8,6 +8,11 @@
 {
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
 	"copilot.vim"
+	"steam"
+	"steam-original"
+	"steam-unwrapped"
+	"steam-run"
+	"steamcmd"
   ];
   imports = [
     ./conf/neovim.nix
@@ -24,6 +29,20 @@
     homeDirectory = "/home/knakto";
     stateVersion = "24.11";
     packages = with pkgs;[
+	valgrind
+	heroic
+	goverlay
+	gamemode
+	networkmanager_dmenu 
+	glxinfo
+	pipx
+	krita
+	wayland-protocols
+	vulkan-loader
+	vulkan-volk
+	vulkan-tools
+	gamescope
+	mangohud
 	killall
 	nautilus
 	swaybg
@@ -60,7 +79,6 @@
 	xwayland
 	hyprland
 	wayland
-			#rofi-wayland
 	cargo
 	zip
 	unzip
