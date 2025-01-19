@@ -61,6 +61,7 @@ fonts.packages = with pkgs; [
 	#hardware.graphics.extraPackages32.enable = true;
 	hardware.graphics.enable = true;
 
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -154,6 +155,7 @@ fonts.packages = with pkgs; [
     hyprland
     home-manager
     osu-lazer-bin-latest
+    #roblox-player
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

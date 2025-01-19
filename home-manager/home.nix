@@ -13,6 +13,7 @@
 	"steam-unwrapped"
 	"steam-run"
 	"steamcmd"
+	"google-chrome"
   ];
   imports = [
     ./conf/neovim.nix
@@ -29,6 +30,12 @@
     homeDirectory = "/home/knakto";
     stateVersion = "24.11";
     packages = with pkgs;[
+	libreoffice
+	openvpn
+	strongswan
+	xl2tpd
+	networkmanager-l2tp
+	nodejs_22
 	valgrind
 	heroic
 	goverlay

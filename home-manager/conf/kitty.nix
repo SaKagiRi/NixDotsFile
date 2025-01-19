@@ -2,6 +2,10 @@
   config,
   ...
 }:
+let
+  bg_path = "/home/knakto/knakto/Nix/assets/background";
+  current_wallpaper = "${bg_path}/random_wallpaper";
+in 
 {
 	programs.kitty = {
 	  enable = true;
@@ -10,8 +14,9 @@
 		font_size       10.0
 
 		window_margin_width     10
-		background_image        /home/knakto/knakto/Nix/assets/background/Anime-Girl-Rain.png
-		background_image_layout scaled
+		# background_image        /home/knakto/knakto/Nix/assets/background/Anime-Girl-Rain.png
+		background_image        ${current_wallpaper}
+		background_image_layout cscaled
 		background_tint         0.80
 		background_tint_gaps    -10.0
 

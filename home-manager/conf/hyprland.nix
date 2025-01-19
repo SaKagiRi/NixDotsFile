@@ -6,16 +6,18 @@
 	...
 }:
 let
-  w1 = "/home/knakto/knakto/Nix/assets/background/1130518.png";
-  w2 = "/home/knakto/knakto/Nix/assets/background/1138016.png";
-  w3 = "/home/knakto/knakto/Nix/assets/background/1225634.jpg";
-  w4 = "/home/knakto/knakto/Nix/assets/background/1292004.jpg";
-  w5 = "/home/knakto/knakto/Nix/assets/background/1295677.png";
-  w6 = "/home/knakto/knakto/Nix/assets/background/1355397.jpeg";
-  w7 = "/home/knakto/knakto/Nix/assets/background/1356447.png";
-  w8 = "/home/knakto/knakto/Nix/assets/background/1386768.png";
-  w9 = "/home/knakto/knakto/Nix/assets/background/1386770.png";
-  w0 = "/home/knakto/knakto/Nix/assets/background/1386771.png";
+  bg_path = "/home/knakto/knakto/Nix/assets/background";
+  w1 = "${bg_path}/1138016.png";
+  w2 = "${bg_path}/1225634.jpg";
+  w3 = "${bg_path}/1292004.jpg";
+  w4 = "${bg_path}/1295677.png";
+  w5 = "${bg_path}/1355397.jpeg";
+  w6 = "${bg_path}/77115862_p0_master1200.jpg";
+  w7 = "${bg_path}/1386768.png";
+  w8 = "${bg_path}/1386770.png";
+  w9 = "${bg_path}/1386771.png";
+  w0 = "${bg_path}/1356447.png";
+  current_wallpaper = "${bg_path}/random_wallpaper";
 in 
 {
 
@@ -121,6 +123,8 @@ in
 				#Gamemode
 				"$mod SHIFT, G, exec, /home/knakto/knakto/Nix/assets/script/gamemode.sh"
 				#Wallpapers
+				"$mod SHIFT, W, exec, /home/knakto/knakto/Nix/assets/script/random_image_wallpaper.sh"
+				"$mod , W, exec, /home/knakto/knakto/Nix/assets/script/set_wallpaper_random.sh"
 				"CTRL, 1, exec, hyprctl hyprpaper wallpaper ,${w1}"
 				"CTRL, 2, exec, hyprctl hyprpaper wallpaper ,${w2}"
 				"CTRL, 3, exec, hyprctl hyprpaper wallpaper ,${w3}"
@@ -269,9 +273,10 @@ in
 
 			background = lib.mkForce [
 				{
-					path = "screenshot";
-					blur_passes = 3;
-					blur_size = 8;
+					#path = "screenshot";
+					path = "${current_wallpaper}";
+					blur_passes = 1; #3
+					blur_size = 1; #8
 				}
 			];
 
