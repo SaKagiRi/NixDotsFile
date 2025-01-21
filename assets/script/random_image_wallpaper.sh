@@ -11,6 +11,8 @@ if [ ${#IMAGE_FILES[@]} -eq 0 ]; then
 fi
 
 RANDOM_IMAGE="${IMAGE_FILES[RANDOM % ${#IMAGE_FILES[@]}]}"
+WALLPAPER="$HOME/knakto/Nix/assets/background/random_wallpaper"
 
 rm -rf "$WALLPAPER_DIR/random_wallpaper"
 cp "$RANDOM_IMAGE" "$WALLPAPER_DIR/random_wallpaper"
+hyprctl hyprpaper unload $WALLPAPER && hyprctl hyprpaper preload $WALLPAPER

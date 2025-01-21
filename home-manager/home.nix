@@ -16,20 +16,22 @@
 	"google-chrome"
   ];
   imports = [
-    ./conf/neovim.nix
-    ./conf/tmux.nix
-    ./conf/zsh.nix
-    ./conf/git.nix
-    ./conf/fastfetch.nix
-	./conf/environment.nix
-	./conf/kitty.nix
-	./conf/hyprland.nix
+    ./conf/neovim
+    ./conf/tmux
+    ./conf/shell
+    ./conf/git
+    ./conf/fastfetch
+	./conf/environment
+	./conf/kitty
+	./conf/hyprland
   ];
   home = {
     username = "knakto";
     homeDirectory = "/home/knakto";
     stateVersion = "24.11";
     packages = with pkgs;[
+	inochi-creator 
+	timg
 	libreoffice
 	openvpn
 	strongswan

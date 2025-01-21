@@ -35,7 +35,7 @@
     homeConfigurations = {
 	    knakto = home-manager.lib.homeManagerConfiguration {
 			pkgs = pkgs;
-		    extraSpecialArgs = { inherit inputs outputs; };
+		    extraSpecialArgs = { inherit self inputs outputs; };
 		    modules = [
 				./home-manager/home.nix
 			];	

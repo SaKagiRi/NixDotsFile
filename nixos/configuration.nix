@@ -12,6 +12,8 @@
       ./conf/steam.nix
     ];
 
+nixpkgs.config.allowUnsupportedSystem = true;
+
  nixpkgs = {
 	overlays = [
 		outputs.overlays.additions
