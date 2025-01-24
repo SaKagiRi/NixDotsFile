@@ -1,0 +1,2 @@
+#!/bin/sh
+exec flatpak run --branch=master --arch=x86_64 org.vinegarhq.Sober "$@"

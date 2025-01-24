@@ -14,7 +14,10 @@
 	"steam-run"
 	"steamcmd"
 	"google-chrome"
+	"minecraft-launcher"
+	"android-studio-stable"
   ];
+  nixpkgs.config.allowBroken = true; 
   imports = [
     ./conf/neovim
     ./conf/tmux
@@ -30,6 +33,10 @@
     homeDirectory = "/home/knakto";
     stateVersion = "24.11";
     packages = with pkgs;[
+	blueman
+	networkmanagerapplet
+	obs-studio
+	openseeface
 	inochi-creator 
 	timg
 	libreoffice

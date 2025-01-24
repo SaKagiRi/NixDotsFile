@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, outputs, inputs, ... }:
+{ config, pkgs, outputs, inputs, nix-flatpak, ... }:
 
 {
   imports =
@@ -13,6 +13,30 @@
     ];
 
 nixpkgs.config.allowUnsupportedSystem = true;
+nixpkgs.config.allowBroken = true;
+
+  #services.flatpak = {
+   # enable = true;
+    #packages = [
+    	#"org.blender.Blender"
+	#"com.mojang.Minecraft"
+#	"net.ankiweb.Anki"
+	#"sober.vinegarhq.org"
+	#{ flatpakref = "https://sober.vinegarhq.org/sober.flatpakref"; sha256="<SHA256>";}
+    #];
+    #removeUnmanagedPackages = true;
+    #update = {
+     # auto = {
+      #  enable = true;
+      #  onCalendar = "weekly";
+      #};
+      #duringBuild = false;
+    #};
+    #remotes = [{
+     # name = "flathub";
+     # url = "https://flathub.org/repo/flathub.flatpakrepo";
+    #}];
+  #};
 
  nixpkgs = {
 	overlays = [
@@ -35,7 +59,7 @@ nixpkgs.config.allowUnsupportedSystem = true;
 			wayland.enable = true;
 		};
 		autoLogin = {
-			enable = true;
+			enable = false;
 			user = "knakto";
 		};
 	};
@@ -98,7 +122,11 @@ fonts.packages = with pkgs; [
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = false;
+  services.xserver = {
+  enable = true;
+  #displayManager.gdm.enable = true;
+  desktopManager.gnome.enable = true;
+};
 
   # Enable the XFCE Desktop Environment.
   #services.xserver.displayManager.lightdm.enable = false;
@@ -157,7 +185,7 @@ fonts.packages = with pkgs; [
     hyprland
     home-manager
     osu-lazer-bin-latest
-    #roblox-player
+    flatpak
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

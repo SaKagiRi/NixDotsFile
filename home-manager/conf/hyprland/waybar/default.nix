@@ -35,6 +35,7 @@
 			network = {
 				format = "ᯤ {}";
 				format-disconnected = "Disconnected ⚠︎";
+				on-click = "nm-applet";
 			};
 			bluetooth = {
 					format = "ᛒ {}";
@@ -42,6 +43,7 @@
 					tooltip-format = "- {controller_alias}\t{controller_address}\n- {device_alias}\t{device_address}";
 				format-disabled = "ᛒ";
 				format-connected = "ᛒ";
+				on-click = "blueman-applet";
 			};
 			pulseaudio = {
 				format = "{icon} {volume}%";
