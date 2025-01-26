@@ -6,6 +6,10 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 	stylix.url = "github:danth/stylix";
 	nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+	nvf = {
+		url = "github:notashelf/nvf";
+		inputs.nixpkgs.follows = "nixpkgs";
+		};
 	hyprland.url = "github:hyprwm/Hyprland";
 	hyprland-plugins = {
 		url = "github:hyprwm/hyprland-plugins";
@@ -17,7 +21,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixos-hardware, nix-flatpak, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nixos-hardware, nix-flatpak, nvf, ... }@inputs:
   let
 	inherit (self) outputs;
 	lib = nixpkgs.lib;
@@ -36,8 +40,9 @@
     homeConfigurations = {
 	    knakto = home-manager.lib.homeManagerConfiguration {
 			pkgs = pkgs;
-		    extraSpecialArgs = { inherit self inputs outputs; };
+		    extraSpecialArgs = { inherit nvf self inputs outputs; };
 		    modules = [
+				nvf.homeManagerModules.default
 				./home-manager/home.nix
 			];	
 	    };

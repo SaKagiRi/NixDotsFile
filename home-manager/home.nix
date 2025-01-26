@@ -1,6 +1,4 @@
 {
-  nixpkgs,
-  config,
   pkgs,
   lib,
   ...
@@ -19,7 +17,7 @@
   ];
   nixpkgs.config.allowBroken = true; 
   imports = [
-    ./conf/neovim
+		#./conf/neovim
     ./conf/tmux
     ./conf/shell
     ./conf/git
@@ -27,6 +25,7 @@
 	./conf/environment
 	./conf/kitty
 	./conf/hyprland
+	./conf/nvf
   ];
   home = {
     username = "knakto";
@@ -54,9 +53,9 @@
 	pipx
 	krita
 	wayland-protocols
-	vulkan-loader
-	vulkan-volk
-	vulkan-tools
+			#vulkan-loader
+			#vulkan-volk
+			#vulkan-tools
 	gamescope
 	mangohud
 	killall
@@ -68,7 +67,7 @@
 	wleave
 	pciutils
 	libGL
-	mesa
+			#mesa
 	gnumake42
 	cmake
 	docker

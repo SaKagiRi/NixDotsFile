@@ -59,7 +59,7 @@ nixpkgs.config.allowBroken = true;
 			wayland.enable = true;
 		};
 		autoLogin = {
-			enable = false;
+			enable = true;
 			user = "knakto";
 		};
 	};
@@ -125,7 +125,7 @@ fonts.packages = with pkgs; [
   services.xserver = {
   enable = true;
   #displayManager.gdm.enable = true;
-  desktopManager.gnome.enable = true;
+  #desktopManager.gnome.enable = true;
 };
 
   # Enable the XFCE Desktop Environment.
