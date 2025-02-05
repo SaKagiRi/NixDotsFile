@@ -1,8 +1,4 @@
-{
-  lib,
-  ...
-}:
-{
+{lib, pkgs, ...}: {
   programs.kitty = {
     enable = true;
     keybindings = {
@@ -16,4 +12,13 @@
     };
     extraConfig = lib.readFile ./kitty.conf;
   };
+  home.packages = with pkgs; [
+    fzf
+    zoxide
+    eza
+    bat
+    tldr
+    zip
+    unzip
+  ];
 }
