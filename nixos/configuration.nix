@@ -1,33 +1,30 @@
 {
+  lib,
   pkgs,
   outputs,
   ...
-}:let
-	module = ./module;
-in{
-  imports = [
-    "${module}/sound"
-    "${module}/user"
-    "${module}/screen"
-    "${module}/opengl"
-    "${module}/mosh"
-    "${module}/bluetooth"
-    "${module}/displaymanager"
-    "${module}/environment"
-    "${module}/fingerprint-scanner"
-    "${module}/firewall"
-    "${module}/font"
-    "${module}/garbage-collector"
-    "${module}/gnome"
-    "${module}/info-fetchers"
-    "${module}/internationalisation"
-    "${module}/auto-upgrade"
-    "${module}/stylix"
-    "${module}/game"
-    "${module}/hyprland"
-    "${module}/flatpak"
-    ./hardware-configuration.nix
-  ];
+}: let
+  module = ./module;
+  desktop-environment = "hyprland"; # hyprland, plasma6, gnome, xfce;
+in {
+  imports =
+    [
+      ./hardware-configuration.nix
+      ./package.nix
+      ./services.nix
+    ]
+    ++ [
+      "${module}/user"
+      "${module}/firewall"
+      "${module}/font"
+      "${module}/internationalisation"
+      "${module}/stylix"
+      "${module}/game"
+      "${module}/flatpak"
+    ]
+    ++ [
+      "${module}/desktop-environment/${desktop-environment}"
+    ];
 
   nixpkgs = {
     overlays = [
@@ -35,15 +32,25 @@ in{
     ];
   };
 
-  services.dbus.enable = true;
-
-
-  # boot.kernelPackages = pkgs.linuxPackages; # (this is the default) some amdgpu issues on 6.10
-  # hardware.xone.enable = true; # support for the xbox controller USB dongle
-  # services.getty.autologinUser = "knakto";
-  # environment.loginShellInit = ''
-  #   [[ "$(tty)" = "/dev/tty1" ]] && ./gs.sh
-  # '';
+  system.autoUpgrade = {
+    enable = true;
+    operation = "switch"; # If you don't want to apply updates immediately, only after rebooting, use `boot` option in this case
+    flake = "/home/knakto/knakto/Nix";
+    flags = ["--update-input" "nixpkgs" "--update-input" "rust-overlay" "--commit-lock-file"];
+    dates = "weekly";
+  };
+  # Optimize storage and automatic scheduled GC running
+  # If you want to run GC manually, use commands:
+  # `nix-store --optimize` for finding and eliminating redundant copies of identical store paths
+  # `nix-store --gc` for optimizing the nix store and removing unreferenced and obsolete store paths
+  # `nix-collect-garbage -d` for deleting old generations of user profiles
+  nix.settings.auto-optimise-store = true;
+  nix.optimise.automatic = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -62,7 +69,7 @@ in{
     hyprland
     home-manager
     osu-lazer-bin-latest
-		#flatpak
+    #flatpak
     firefox
   ];
 

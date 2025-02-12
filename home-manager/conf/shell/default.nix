@@ -1,8 +1,4 @@
-{	self
-,	...
-}:
-
-{
+{self, ...}: {
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
@@ -25,20 +21,22 @@
       wayland = "export XDG_SESSION_TYPE=wayland";
       x11 = "export XDG_SESSION_TYPE=x11";
       sound = "amixer set Master";
-	  cd = "z";
-	  cat = "bat";
-	  mans = "tldr";
-	  norm = "/home/knakto/.local/share/pipx/venvs/norminette/bin/norminette";
-	  vpn-on = "sudo openvpn --config ~/knakto/Nix/public/knakto.ovpn --daemon";
-	  vpn-off = ''sudo kill $(ps aux | grep openvpn | awk '$1 == "root" {print $2}')'';
-	  develop="nix develop --command zsh";
-	  fran="~/francinette/tester.sh";
+      cd = "z";
+      cat = "bat";
+      mans = "tldr";
+      norm = "/home/knakto/.local/share/pipx/venvs/norminette/bin/norminette";
+      vpn-on = "sudo openvpn --config ~/knakto/Nix/public/knakto.ovpn --daemon";
+      vpn-off = ''sudo kill $(ps aux | grep openvpn | awk '$1 == "root" {print $2}')'';
+      develop = "nix develop --command zsh";
+      fran = "~/francinette/tester.sh";
+      oo = "cd ~/vaults/";
+      or = "vim ~/vaults/";
     };
 
     initExtra = ''
-			fastfetch
-			eval "$(fzf --zsh)"
-			eval "$(zoxide init zsh)"
+      fastfetch
+      eval "$(fzf --zsh)"
+      eval "$(zoxide init zsh)"
     '';
 
     oh-my-zsh = {
@@ -55,7 +53,7 @@
         "sudo"
         "systemd"
         "tig"
-        "tmux"
+        #"tmux"
         "vi-mode"
         "yarn"
         "zsh-navigation-tools"

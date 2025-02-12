@@ -1,7 +1,13 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  self,
+  ...
+}: {
   stylix = {
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
-    image = ../../assets/background/City-Rainy-Night.png;
+    enable = true;
+    autoEnable = true;
+    targets.gtk.enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine-moon.yaml";
     polarity = "dark";
   };
 }

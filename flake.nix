@@ -6,8 +6,8 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     stylix.url = "github:danth/stylix";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    swww.url = "github:LGFae/swww";
     nix-software-center.url = "github:snowfallorg/nix-software-center";
-    wezterm.url = "github:wez/wezterm?dir=nix";
     nvf = {
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";

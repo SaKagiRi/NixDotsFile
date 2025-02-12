@@ -1,21 +1,23 @@
 {
-  cfg,
   lib,
+  inputs,
   self,
   pkgs,
   ...
 }: let
-  bg_path = "${self}/assets/background";
-  w1 = "${bg_path}/1148498.jpg";
-  w2 = "${bg_path}/1148520.jpg";
-  w3 = "${bg_path}/FuBuki_cuty.jpg";
-  w4 = "${bg_path}/1295677.png";
-  w5 = "${bg_path}/1355397.jpeg";
-  w6 = "${bg_path}/77115862_p0_master1200.jpg";
-  w7 = "${bg_path}/1386768.png";
-  w8 = "${bg_path}/1386770.png";
-  w9 = "${bg_path}/1386771.png";
-  w0 = "${bg_path}/1356447.png";
+  bg_path = "${self}/home-manager/conf/hyprland/background";
+  w1 = "1148498.jpg";
+  w2 = "1148520.jpg";
+  w3 = "nix.jpg";
+  w4 = "1295677.png";
+  w5 = "1355397.jpeg";
+  w6 = "77115862_p0_master1200.jpg";
+  w7 = "1386768.png";
+  w8 = "1386770.png";
+  w9 = "1386771.png";
+  w0 = "1356447.png";
+  packages = with pkgs; [swww];
+  script = "${self}/home-manager/conf/hyprland/script";
 in {
   imports = [
     ./waybar
@@ -23,10 +25,20 @@ in {
     ./rofi
   ];
 
-  xdg.portal.extraPortals = with pkgs; [
-    xdg-desktop-portal
-    xdg-desktop-portal-gtk
-  ];
+  home.packages =
+    [
+      # inputs.swww.packages.${pkgs.system}.swww
+    ]
+    ++ packages;
+
+  xdg.portal.extraPortals = with pkgs;
+    [
+      xdg-desktop-portal
+      xdg-desktop-portal-gtk
+    ]
+    ++ [
+      inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
+    ];
 
   wayland.windowManager.sway = {
     enable = true;
@@ -99,6 +111,9 @@ in {
         "hyprlock || hyprctl dispatch exit"
         #"waybar"
         "hyprpaper"
+        "${pkgs.swww}/bin/swww-daemon"
+        "./script/change_wallpaper.sh"
+        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland"
         "wl-paste --watch cliphist store"
         "fcitx5"
       ];
@@ -143,20 +158,20 @@ in {
         #Rofi
         "$mod, B, exec, kill $(ps -la | grep waybar | awk '{print $4}') || waybar"
         #Gamemode
-        "$mod SHIFT, G, exec, ${self}/assets/script/gamemode.sh"
+        "$mod SHIFT, G, exec, ${script}/gamemode.sh"
         #Wallpapers
-        "$mod SHIFT, W, exec, ${self}/assets/script/random_image_wallpaper.sh"
-        "$mod , W, exec, ${self}/assets/script/set_wallpaper_random.sh"
-        "CTRL, 1, exec, hyprctl hyprpaper wallpaper ,${w1}"
-        "CTRL, 2, exec, hyprctl hyprpaper wallpaper ,${w2}"
-        "CTRL, 3, exec, hyprctl hyprpaper wallpaper ,${w3}"
-        "CTRL, 4, exec, hyprctl hyprpaper wallpaper ,${w4}"
-        "CTRL, 5, exec, hyprctl hyprpaper wallpaper ,${w5}"
-        "CTRL, 6, exec, hyprctl hyprpaper wallpaper ,${w6}"
-        "CTRL, 7, exec, hyprctl hyprpaper wallpaper ,${w7}"
-        "CTRL, 8, exec, hyprctl hyprpaper wallpaper ,${w8}"
-        "CTRL, 9, exec, hyprctl hyprpaper wallpaper ,${w9}"
-        "CTRL, 0, exec, hyprctl hyprpaper wallpaper ,${w0}"
+        "$mod SHIFT, W, exec, source ${script}/random_wallpaper.sh"
+        "$mod , W, exec, ${script}/random_wallpaper.sh && ${script}/set_wallpaper.sh"
+        "CTRL, 1, exec, ${script}/random_wallpaper.sh ${w1} && ${script}/set_wallpaper.sh"
+        "CTRL, 2, exec, ${script}/random_wallpaper.sh ${w2} && ${script}/set_wallpaper.sh"
+        "CTRL, 3, exec, ${script}/random_wallpaper.sh ${w3} && ${script}/set_wallpaper.sh"
+        "CTRL, 4, exec, ${script}/random_wallpaper.sh ${w4} && ${script}/set_wallpaper.sh"
+        "CTRL, 5, exec, ${script}/random_wallpaper.sh ${w5} && ${script}/set_wallpaper.sh"
+        "CTRL, 6, exec, ${script}/random_wallpaper.sh ${w6} && ${script}/set_wallpaper.sh"
+        "CTRL, 7, exec, ${script}/random_wallpaper.sh ${w7} && ${script}/set_wallpaper.sh"
+        "CTRL, 8, exec, ${script}/random_wallpaper.sh ${w8} && ${script}/set_wallpaper.sh"
+        "CTRL, 9, exec, ${script}/random_wallpaper.sh ${w9} && ${script}/set_wallpaper.sh"
+        "CTRL, 0, exec, ${script}/random_wallpaper.sh ${w0} && ${script}/set_wallpaper.sh"
         # Window
         "$mod, Q, killactive"
         "$mod, M, fullscreen, 1"
@@ -283,35 +298,35 @@ in {
     # ];
   };
 
-  services.hyprpaper = {
-    enable = true;
-    settings = {
-      preload = [
-        "${w1}"
-        "${w2}"
-        "${w3}"
-        "${w4}"
-        "${w5}"
-        "${w6}"
-        "${w7}"
-        "${w8}"
-        "${w9}"
-        "${w0}"
-      ];
-      wallpaper = [
-        ",${w1}"
-        ",${w2}"
-        ",${w3}"
-        ",${w4}"
-        ",${w5}"
-        ",${w6}"
-        ",${w7}"
-        ",${w8}"
-        ",${w9}"
-        ",${w0}"
-      ];
-    };
-  };
+  # services.hyprpaper = {
+  #   enable = true;
+  #   settings = {
+  #     preload = [
+  #       "${w1}"
+  #       "${w2}"
+  #       "${w3}"
+  #       "${w4}"
+  #       "${w5}"
+  #       "${w6}"
+  #       "${w7}"
+  #       "${w8}"
+  #       "${w9}"
+  #       "${w0}"
+  #     ];
+  #     wallpaper = [
+  #       ",${w1}"
+  #       ",${w2}"
+  #       ",${w3}"
+  #       ",${w4}"
+  #       ",${w5}"
+  #       ",${w6}"
+  #       ",${w7}"
+  #       ",${w8}"
+  #       ",${w9}"
+  #       ",${w0}"
+  #     ];
+  #   };
+  # };
 
   services.mako = {
     enable = true;

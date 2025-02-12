@@ -4,7 +4,12 @@
   ...
 }: let
   module = ./conf;
+  neovim = "nvf"; #nvf, neovim;
 in {
+  programs = {
+    tmux.enable = lib.mkForce false;
+  };
+
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "copilot.vim"
@@ -17,10 +22,10 @@ in {
       "minecraft-launcher"
       "android-studio-stable"
       "vscode"
+      "obsidian"
     ];
   nixpkgs.config.allowBroken = true;
   imports = [
-    #"${module}/neovim"
     "${module}/tmux"
     "${module}/shell"
     "${module}/git"
@@ -28,7 +33,7 @@ in {
     "${module}/environment"
     "${module}/kitty"
     "${module}/hyprland"
-    "${module}/nvf"
+    "${module}/${neovim}"
     "${module}/drawing"
   ];
   home = {
@@ -36,6 +41,9 @@ in {
     homeDirectory = "/home/knakto";
     stateVersion = "24.11";
     packages = with pkgs; [
+      google-chrome
+      obsidian
+      nemo
       paleta
       networkmanagerapplet
       libreoffice
@@ -50,8 +58,6 @@ in {
       wayland-protocols
       killall
       nautilus
-      swaybg
-      sway
       handlr
       hyprshot
       wleave

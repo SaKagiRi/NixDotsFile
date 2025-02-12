@@ -12,7 +12,7 @@
     "com.spotify.Client"
     "com.mojang.Minecraft"
     "net.nokyan.Resources"
-    "sober"
+    "org.vinegarhq.Sober"
   ];
 in {
   environment.systemPackages = with pkgs; [

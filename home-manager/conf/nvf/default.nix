@@ -52,7 +52,12 @@ in {
             format.enable = true;
             lsp.enable = true;
           };
-          markdown.enable = true;
+          markdown = {
+            enable = true;
+            extensions.render-markdown-nvim = {
+              enable = true;
+            };
+          };
           clang = {
             enable = true;
             lsp.enable = true;
@@ -166,13 +171,157 @@ in {
           comment-nvim.enable = true;
         };
         notes = {
-          obsidian.enable = false;
+          obsidian = {
+            enable = true;
+            setupOpts = {
+              completion.nvim_cmp = true;
+              workspaces = [
+                {
+                  name = "braincell";
+                  path = "~/knakto/vaults/braincell";
+                }
+                {
+                  name = "work";
+                  path = "~/knakto/vaults/work";
+                }
+              ];
+              mappings = {
+                "gf" = ''
+                  action = function()
+                      return require("obsidian").util.gf_passthrough()
+                  end,
+                  opts = { noremap = false, expr = true, buffer = true },'';
+                "<leader>ch" = ''
+                  action = function()
+                    return require("obsidian").util.toggle_checkbox()
+                  end,
+                  opts = { buffer = true },'';
+                "<cr>" = ''
+                  action = function()
+                    return require("obsidian").util.smart_action()
+                  end,
+                  opts = { buffer = true, expr = true },'';
+              };
+            };
+          };
           neorg.enable = false;
           orgmode.enable = false;
           mind-nvim.enable = true;
           todo-comments.enable = true;
         };
         keymaps = [
+          {
+            key = "<leader>oe";
+            mode = ["n" "v"];
+            action = ":ObsidianTemplate<CR>";
+            silent = true;
+            desc = "obsidian template";
+          }
+          {
+            key = "<leader>of";
+            mode = ["n" "v"];
+            action = ":s/\\(#\\)[^_]*_/\\1/ | s/-/ /g<CR>";
+            silent = true;
+            desc = "format obsidian note";
+          }
+          {
+            key = "<leader>os";
+            mode = ["n" "v"];
+            action = ":ObsidianSearch<CR>";
+            silent = true;
+            desc = "search obsidian note";
+          }
+          {
+            key = "<leader>or";
+            mode = ["n" "v"];
+            action = ":ObsidianRename<CR>";
+            silent = true;
+            desc = "rename obsidian note";
+          }
+          {
+            key = "<leader>oi";
+            mode = ["n" "v"];
+            action = ":ObsidianPasteImg<CR>";
+            silent = true;
+            desc = "obsidian paste image";
+          }
+          {
+            key = "<leader>ow";
+            mode = ["n" "v"];
+            action = ":ObsidianWorkspace<CR>";
+            silent = true;
+            desc = "open obsidian workspace";
+          }
+          {
+            key = "<leader>op";
+            mode = ["n" "v"];
+            action = ":ObsidianOpen<CR>";
+            silent = true;
+            desc = "close obsidian note";
+          }
+          {
+            key = "<leader>oo";
+            mode = ["n" "v"];
+            action = ":ObsidianQuickSwitch<CR>";
+            silent = true;
+            desc = "open obsidian quick switch";
+          }
+          {
+            key = "<leader>oll";
+            mode = ["v"];
+            action = ":ObsidianLink<CR>";
+            silent = true;
+            desc = "insert obsidian link";
+          }
+          {
+            key = "<leader>oln";
+            mode = ["v"];
+            action = ":ObsidianLinkNew<CR>";
+            silent = true;
+            desc = "new obsidian link";
+          }
+          {
+            key = "<leader>oll";
+            mode = ["n"];
+            action = ":obsidianFollowLink<CR>";
+            silent = true;
+            desc = "insert obsidian link";
+          }
+          {
+            key = "<leader>oln";
+            mode = ["n"];
+            action = ":ObsidianFollowLink<CR>";
+            silent = true;
+            desc = "new obsidian link";
+          }
+          {
+            key = "<leader>olm";
+            mode = ["n" "v"];
+            action = ":ObsidianLinks<CR>";
+            silent = true;
+            desc = "open manage obsidian links";
+          }
+          {
+            key = "<leader>on";
+            mode = ["n"];
+            action = ":ObsidianNew<CR>";
+            silent = true;
+            desc = "new obsidian note";
+          }
+          {
+            key = "<leader>om";
+            mode = ["n"];
+            action = ":ObsidianNewFromTemplate<CR>";
+            silent = true;
+            desc = "new obsidian note from template";
+          }
+          {
+            key = "<leader>ot";
+            mode = ["n"];
+            action = ":ObsidianTag<CR>";
+            silent = true;
+            desc = "insert obsidian tag";
+          }
           {
             key = "<C-n>";
             mode = ["n"];
@@ -215,6 +364,13 @@ in {
             silent = true;
             desc = "delete window";
           }
+          {
+            key = "<C-C>";
+            mode = ["v"];
+            action = ''"+y'';
+            silent = true;
+            desc = "copy to clipboard";
+          }
         ];
         options = {
           smartindent = true;
@@ -225,6 +381,7 @@ in {
           list = true;
         };
         luaConfigRC.aerial-nvim = entryAnywhere ''
+          vim.opt.conceallevel = 2
           vim.opt.backspace = { 'indent', 'eol', 'start' }
           vim.opt.listchars = { space = '⋅', tab = '→ ', eol = '↴' }
         '';
@@ -333,6 +490,62 @@ in {
                    user = "knakto",
                    mail = "knakto@student.42bangkok.com",
               });
+            '';
+          };
+          obsidian = {
+            package = obsidian-nvim;
+            setup = ''
+              require('obsidian').setup({
+               workspaces = {
+                 {
+                   name = "braincell",
+                   path = "~/knakto/vaults/braincell",
+                 },
+                 {
+                   name = "work",
+                   path = "~/knakto/vaults/work",
+                 },
+                },
+                daily_notes = {
+                  -- Optional, if you keep daily notes in a separate directory.
+                  folder = "notes/dailies",
+                  -- Optional, if you want to change the date format for the ID of daily notes.
+                  date_format = "%Y-%m-%d",
+                  -- Optional, if you want to change the date format of the default alias of daily notes.
+                  alias_format = "%B %-d, %Y",
+                  -- Optional, default tags to add to each new daily note created.
+                  default_tags = { "daily-notes" },
+                  -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
+                  template = nil
+                },
+                templates = {
+                  folder = "templates",
+                  date_format = "%Y-%m-%d",
+                  time_format = "%H:%M",
+                  -- A map for custom variables, the key should be the variable and the value a function
+                  substitutions = {},
+                },
+                open_app_foreground = false,
+                sort_by = "modified",
+                sort_reversed = true,
+                disable_frontmatter = true,
+                ---@param title string|?
+                ---@return string
+                note_id_func = function(title)
+                local suffix = ""
+                if title ~= nil then
+                suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+                else
+                -- If title is nil, just add 4 random uppercase letters to the suffix.
+                for _ = 1, 4 do
+                suffix = suffix .. string.char(math.random(65, 90))
+                end
+                end
+                -- return tostring(os.time()) .. "-" .. suffix
+                return tostring(os.date("%d%m")) .. "-" .. tostring(os.date("%H%M")) .. "-" .. tostring(os.date("%S"))
+                end,
+
+              })
             '';
           };
         };
