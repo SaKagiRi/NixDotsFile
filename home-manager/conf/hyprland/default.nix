@@ -16,7 +16,6 @@
   w8 = "1386770.png";
   w9 = "1386771.png";
   w0 = "1356447.png";
-  packages = with pkgs; [swww];
   script = "${self}/home-manager/conf/hyprland/script";
 in {
   imports = [
@@ -25,11 +24,7 @@ in {
     ./rofi
   ];
 
-  home.packages =
-    [
-      # inputs.swww.packages.${pkgs.system}.swww
-    ]
-    ++ packages;
+  home.packages = with pkgs; [swww wlogout];
 
   xdg.portal.extraPortals = with pkgs;
     [
@@ -39,19 +34,6 @@ in {
     ++ [
       inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
     ];
-
-  wayland.windowManager.sway = {
-    enable = true;
-    config = {
-      modifier = "Mod4";
-      # Use kitty as default terminal
-      terminal = "kitty";
-      startup = [
-        # Launch Firefox on start
-        {command = "firefox";}
-      ];
-    };
-  };
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -108,9 +90,8 @@ in {
         disable_hyprland_logo = true;
       };
       exec-once = [
-        "hyprlock || hyprctl dispatch exit"
+        # "hyprlock || hyprctl dispatch exit"
         #"waybar"
-        "hyprpaper"
         "${pkgs.swww}/bin/swww-daemon"
         "./script/change_wallpaper.sh"
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland"
@@ -143,12 +124,10 @@ in {
         # Terminal
         "CTRL ALT, T, exec, kitty"
         # Exit (temporary)
-        "$mod, ESCAPE, exec, kill $(ps -la | grep wleave | awk '{print $4}') || pidof wleave || wleave -p layer-shell"
+        "$mod, ESCAPE, exec, kill $(ps -la | grep wlogout | awk '{print $4}') || wlogout"
         # Lockscreen
         "CTRL ALT, L, exec, hyprlock"
         "ALT, ESCAPE, exec, poweroff"
-        # Application
-        "$mod, E, exec, xdg-open ~"
         # Clipboard
         "$mod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
         # Screenshot
@@ -157,6 +136,8 @@ in {
         "$mod SHIFT, Print, exec, grim -g \"$(slurp)\" - | wl-copy"
         #Rofi
         "$mod, B, exec, kill $(ps -la | grep waybar | awk '{print $4}') || waybar"
+        # "$mod SHIFT, B, exec, kill $(ps -la | grep waybar | awk '{print $4}')"
+        # "$mod, B, exec, waybar"
         #Gamemode
         "$mod SHIFT, G, exec, ${script}/gamemode.sh"
         #Wallpapers
@@ -173,17 +154,14 @@ in {
         "CTRL, 9, exec, ${script}/random_wallpaper.sh ${w9} && ${script}/set_wallpaper.sh"
         "CTRL, 0, exec, ${script}/random_wallpaper.sh ${w0} && ${script}/set_wallpaper.sh"
         # Window
+        "$mod, TAB, overview:toggle, toggle"
         "$mod, Q, killactive"
         "$mod, M, fullscreen, 1"
         "$mod, R, togglesplit,"
         "$mod, P, pseudo,"
-        "$mod SHIFT, P, pin"
         "$mod SHIFT, M, fullscreen, 0"
         "$mod, F, togglefloating"
         "$mod, G, togglegroup"
-        "CTRL ALT, G, lockgroups, toggle"
-        "CTRL ALT, right, changegroupactive, f"
-        "CTRL ALT, left, changegroupactive, b"
         "$mod, return, exec, rofi -show drun"
         # Move to workspace
         "$mod , A, workspace, r-1"
@@ -263,92 +241,72 @@ in {
       };
     };
     extraConfig = ''
-      submap = passthrough
-      	bind = ALT CTRL,escape,exec,notify-send -e -u low -a Hyprland "Normal mode"
-      	bind = ALT CTRL,escape,submap,reset
-      submap = movewindow
-      	binde = , right, movewindow, r
-      	binde = , left, movewindow, l
-      	binde = , up, movewindow, u
-      	binde = , down, movewindow, d
-      	binde = , l, movewindow, r
-      	binde = , h, movewindow, l
-      	binde = , k, movewindow, u
-      	binde = , j, movewindow, d
-      	bind = ,escape,exec,notify-send -e -u low -a Hyprland "Normal mode"
-      	bind= ,catchall,submap,reset
-      	bind = ,escape,submap,reset
-      submap = resizewindow
-      	binde = , right, resizeactive, 20 0
-      	binde = , left, resizeactive, -20 0
-      	binde = , up, resizeactive, 0 -20
-      	binde = , down, resizeactive, 0 20
-      	binde = , l, resizeactive, 20 0
-      	binde = , h, resizeactive, -20 0
-      	binde = , k, resizeactive, 0 -20
-      	binde = , j, resizeactive, 0 20
-      	bind = ,escape,exec,notify-send -e -u low -a Hyprland "Normal mode"
-      	bind= ,catchall,submap,reset
-      	bind = ,escape,submap,reset
-      ### Reset ###
-      submap = reset
+          submap = passthrough
+          bind = ALT CTRL,escape,exec,notify-send -e -u low -a Hyprland "Normal mode"
+          bind = ALT CTRL,escape,submap,reset
+          submap = movewindow
+          binde = , right, movewindow, r
+          binde = , left, movewindow, l
+          binde = , up, movewindow, u
+          binde = , down, movewindow, d
+          binde = , l, movewindow, r
+          binde = , h, movewindow, l
+          binde = , k, movewindow, u
+          binde = , j, movewindow, d
+          bind = ,escape,exec,notify-send -e -u low -a Hyprland "Normal mode"
+          bind= ,catchall,submap,reset
+          bind = ,escape,submap,reset
+          submap = resizewindow
+          binde = , right, resizeactive, 20 0
+          binde = , left, resizeactive, -20 0
+          binde = , up, resizeactive, 0 -20
+          binde = , down, resizeactive, 0 20
+          binde = , l, resizeactive, 20 0
+          binde = , h, resizeactive, -20 0
+          binde = , k, resizeactive, 0 -20
+          binde = , j, resizeactive, 0 20
+          bind = ,escape,exec,notify-send -e -u low -a Hyprland "Normal mode"
+          bind= ,catchall,submap,reset
+          bind = ,escape,submap,reset
+          ### Reset ###
+          submap = reset
+          plugin {
+          	hyprwinwrap {
+          		# class is an EXACT match and NOT a regex!
+          		class = GLava
+          	}
+          	hyprexpo {
+          		columns = 5
+          		gap_size = 5
+          		bg_col = rgb(111111)
+          		workspace_method = center current # [center/first] [workspace] e.g. first 1 or center m+1
+
+          		enable_gesture = true # laptop touchpad
+          		gesture_fingers = 4  # 3 or 4
+          		gesture_distance = 300 # how far is the "max"
+          		gesture_positive = true # positive = swipe down. Negative = swipe up.
+          	}
+      overview {
+      	onBottom = true
+      	panelColor = rgba(0, 0, 0, 0.3)
+      	panelBorderColor = rgba(255, 255, 255, 0.2)
+      	workspaceActiveBorder = rgba(255, 255, 255, 0.5)
+      	centerAligned = true
+      	workspaceBorderSize = 4
+      	workspaceMargin = 5
+      	panelHeight = 70
+      	drawActiveWorkspace = true
+      	overrideGaps = true
+      	gapsIn = 15
+      	gapsOut = 20
+      	disableBlur = true
+      	showNewWorkspace = true
+      	showEmptyWorkspace = true
+      }
+          }
     '';
-    # plugins = with pkgs.hyprland-plugins; [
-    # 	hyprwinwrap
-    # ];
-  };
-
-  # services.hyprpaper = {
-  #   enable = true;
-  #   settings = {
-  #     preload = [
-  #       "${w1}"
-  #       "${w2}"
-  #       "${w3}"
-  #       "${w4}"
-  #       "${w5}"
-  #       "${w6}"
-  #       "${w7}"
-  #       "${w8}"
-  #       "${w9}"
-  #       "${w0}"
-  #     ];
-  #     wallpaper = [
-  #       ",${w1}"
-  #       ",${w2}"
-  #       ",${w3}"
-  #       ",${w4}"
-  #       ",${w5}"
-  #       ",${w6}"
-  #       ",${w7}"
-  #       ",${w8}"
-  #       ",${w9}"
-  #       ",${w0}"
-  #     ];
-  #   };
-  # };
-
-  services.mako = {
-    enable = true;
-    backgroundColor = "#282a36af";
-    textColor = "#f4f7fa";
-    borderColor = "#282a36";
-    progressColor = "#00ffff3a";
-    borderRadius = 5;
-    margin = "5, 20";
-    width = 375;
-    height = 175;
-    layer = "overlay";
-    extraConfig = ''
-      [urgency=low]
-      border-color=#879a9c
-      default-timeout=7000
-
-      [urgency=normal]
-      border-color=#b0cfd1
-      default-timeout=10000
-
-      [urgency=high]
-      border-color=#d1a8f0'';
+    plugins = with pkgs.hyprlandPlugins; [
+      hyprspace
+    ];
   };
 }

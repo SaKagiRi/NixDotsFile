@@ -31,6 +31,12 @@
       fran = "~/francinette/tester.sh";
       oo = "cd ~/vaults/";
       or = "vim ~/vaults/";
+
+      #temp
+      token = ''
+        curl -X POST "https://api51000.jibcom.dev/internal-login/api/v1/login" -H "Content-Type: application/json" -d '{"username":"sale001", "password":"123456"}'| jq -r | grep token | awk -F'"' '{print $4}' | wl-copy
+      '';
+      jib = "/home/knakto/knakto/Nix/home-manager/conf/shell/api.sh";
     };
 
     initExtra = ''

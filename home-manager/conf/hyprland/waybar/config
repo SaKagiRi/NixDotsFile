@@ -397,7 +397,7 @@
         "return-type": "json",
         "exec": "echo '{ \"text\":\"󰐥\", \"tooltip\": \"logout menu\" }'",
         "interval": "once",
-        "on-click": "wleave -p layer-shell",
+        "on-click": "wlogout",
     },
  
 },

@@ -41,6 +41,7 @@ in {
     homeDirectory = "/home/knakto";
     stateVersion = "24.11";
     packages = with pkgs; [
+      jq
       google-chrome
       obsidian
       nemo
@@ -60,7 +61,6 @@ in {
       nautilus
       handlr
       hyprshot
-      wleave
       pciutils
       libGL
       gnumake42

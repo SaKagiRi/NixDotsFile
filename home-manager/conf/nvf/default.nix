@@ -544,8 +544,13 @@ in {
                 -- return tostring(os.time()) .. "-" .. suffix
                 return tostring(os.date("%d%m")) .. "-" .. tostring(os.date("%H%M")) .. "-" .. tostring(os.date("%S"))
                 end,
-
               })
+            '';
+          };
+          neoscroll = {
+            package = neoscroll-nvim;
+            setup = ''
+              require('neoscroll').setup()
             '';
           };
         };

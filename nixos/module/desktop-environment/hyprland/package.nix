@@ -5,7 +5,6 @@
     hyprcursor
     hyprlock
     hypridle
-    # hyprpaper
     cool-retro-term
     starship
     helix
