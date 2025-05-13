@@ -41,6 +41,8 @@ in {
     homeDirectory = "/home/knakto";
     stateVersion = "24.11";
     packages = with pkgs; [
+      vscode
+      clang-manpages
       jq
       google-chrome
       obsidian
@@ -84,6 +86,9 @@ in {
       hyprland
       wayland
       cargo
+      readline
+      xclicker
+      prismlauncher
     ];
   };
 }

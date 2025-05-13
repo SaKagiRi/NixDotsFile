@@ -61,6 +61,8 @@ get_api() {
 		api="stock"
 	elif [ "$1" == "auth" ] || [ "$1" == "aut" ]; then
 		api="auth"
+	else
+		api="$1"
 	fi
 }
 

@@ -12,6 +12,7 @@ in {
       ./hardware-configuration.nix
       ./package.nix
       ./services.nix
+      ./bootloader.nix
     ]
     ++ [
       "${module}/user"
@@ -51,9 +52,6 @@ in {
     dates = "weekly";
     options = "--delete-older-than 14d";
   };
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
 
   boot.initrd.luks.devices."luks-72d63459-5a02-4c2a-8d0b-631f45c1464e".device = "/dev/disk/by-uuid/72d63459-5a02-4c2a-8d0b-631f45c1464e";
   networking.hostName = "nixos"; # Define your hostname.

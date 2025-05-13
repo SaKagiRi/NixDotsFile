@@ -9,6 +9,8 @@
   ];
   game = with pkgs; [flatpak libportal];
   screen = with pkgs; [
+	efibootmgr
+
     wlsunset
     brightnessctl
 

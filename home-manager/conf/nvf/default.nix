@@ -386,16 +386,16 @@ in {
           vim.opt.listchars = { space = '⋅', tab = '→ ', eol = '↴' }
         '';
         extraPlugins = with pkgs.vimPlugins; {
-          copilot-vim = {
-            package = copilot-vim;
-            setup = ''
-              --require('copilot').setup {}
-              vim.keymap.set('i', '<m-l>', 'copilot#Accept("\\<CR>")', { expr = true, replace_keycodes = false })
-              vim.g.copilot_no_tab_map = true
-              vim.g.copilot_assume_mapped = true
-              vim.g.copilot_cr_tab_map = true
-            '';
-          };
+          # copilot-vim = {
+          #   package = copilot-vim;
+          #   setup = ''
+          #     --require('copilot').setup {}
+          #     vim.keymap.set('i', '<m-l>', 'copilot#Accept("\\<CR>")', { expr = true, replace_keycodes = false })
+          #     vim.g.copilot_no_tab_map = true
+          #     vim.g.copilot_assume_mapped = true
+          #     vim.g.copilot_cr_tab_map = true
+          #   '';
+          # };
           CopilotChat-nvim = {
             package = CopilotChat-nvim;
             setup = ''
@@ -492,61 +492,61 @@ in {
               });
             '';
           };
-          obsidian = {
-            package = obsidian-nvim;
-            setup = ''
-              require('obsidian').setup({
-               workspaces = {
-                 {
-                   name = "braincell",
-                   path = "~/knakto/vaults/braincell",
-                 },
-                 {
-                   name = "work",
-                   path = "~/knakto/vaults/work",
-                 },
-                },
-                daily_notes = {
-                  -- Optional, if you keep daily notes in a separate directory.
-                  folder = "notes/dailies",
-                  -- Optional, if you want to change the date format for the ID of daily notes.
-                  date_format = "%Y-%m-%d",
-                  -- Optional, if you want to change the date format of the default alias of daily notes.
-                  alias_format = "%B %-d, %Y",
-                  -- Optional, default tags to add to each new daily note created.
-                  default_tags = { "daily-notes" },
-                  -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
-                  template = nil
-                },
-                templates = {
-                  folder = "templates",
-                  date_format = "%Y-%m-%d",
-                  time_format = "%H:%M",
-                  -- A map for custom variables, the key should be the variable and the value a function
-                  substitutions = {},
-                },
-                open_app_foreground = false,
-                sort_by = "modified",
-                sort_reversed = true,
-                disable_frontmatter = true,
-                ---@param title string|?
-                ---@return string
-                note_id_func = function(title)
-                local suffix = ""
-                if title ~= nil then
-                suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-                else
-                -- If title is nil, just add 4 random uppercase letters to the suffix.
-                for _ = 1, 4 do
-                suffix = suffix .. string.char(math.random(65, 90))
-                end
-                end
-                -- return tostring(os.time()) .. "-" .. suffix
-                return tostring(os.date("%d%m")) .. "-" .. tostring(os.date("%H%M")) .. "-" .. tostring(os.date("%S"))
-                end,
-              })
-            '';
-          };
+          # obsidian = {
+          #   package = obsidian-nvim;
+          #   setup = ''
+          #     require('obsidian').setup({
+          #      workspaces = {
+          #        {
+          #          name = "braincell",
+          #          path = "~/knakto/vaults/braincell",
+          #        },
+          #        {
+          #          name = "work",
+          #          path = "~/knakto/vaults/work",
+          #        },
+          #       },
+          #       daily_notes = {
+          #         -- Optional, if you keep daily notes in a separate directory.
+          #         folder = "notes/dailies",
+          #         -- Optional, if you want to change the date format for the ID of daily notes.
+          #         date_format = "%Y-%m-%d",
+          #         -- Optional, if you want to change the date format of the default alias of daily notes.
+          #         alias_format = "%B %-d, %Y",
+          #         -- Optional, default tags to add to each new daily note created.
+          #         default_tags = { "daily-notes" },
+          #         -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
+          #         template = nil
+          #       },
+          #       templates = {
+          #         folder = "templates",
+          #         date_format = "%Y-%m-%d",
+          #         time_format = "%H:%M",
+          #         -- A map for custom variables, the key should be the variable and the value a function
+          #         substitutions = {},
+          #       },
+          #       open_app_foreground = false,
+          #       sort_by = "modified",
+          #       sort_reversed = true,
+          #       disable_frontmatter = true,
+          #       ---@param title string|?
+          #       ---@return string
+          #       note_id_func = function(title)
+          #       local suffix = ""
+          #       if title ~= nil then
+          #       suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+          #       else
+          #       -- If title is nil, just add 4 random uppercase letters to the suffix.
+          #       for _ = 1, 4 do
+          #       suffix = suffix .. string.char(math.random(65, 90))
+          #       end
+          #       end
+          #       -- return tostring(os.time()) .. "-" .. suffix
+          #       return tostring(os.date("%d%m")) .. "-" .. tostring(os.date("%H%M")) .. "-" .. tostring(os.date("%S"))
+          #       end,
+          #     })
+          #   '';
+          # };
           neoscroll = {
             package = neoscroll-nvim;
             setup = ''
