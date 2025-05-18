@@ -15,7 +15,8 @@ if [ $# != "0" ]; then
 	exit 0
 fi
 
-IMAGE_FILES=($(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" \)))
+# IMAGE_FILES=($(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" \)))
+IMAGE_FILES=($(find "$WALLPAPER_DIR" -type f \( -iname "*" \)))
 
 if [ ${#IMAGE_FILES[@]} -eq 0 ]; then
     echo "No images found in $WALLPAPER_DIR"

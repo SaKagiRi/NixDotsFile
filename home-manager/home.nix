@@ -12,21 +12,15 @@ in {
 
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
-      "copilot.vim"
-      "steam"
-      "steam-original"
-      "steam-unwrapped"
-      "steam-run"
-      "steamcmd"
       "google-chrome"
       "minecraft-launcher"
-      "android-studio-stable"
-      "vscode"
       "obsidian"
+      "steam"
+      "steam-unwrapped"
     ];
   nixpkgs.config.allowBroken = true;
   imports = [
-    "${module}/tmux"
+    # "${module}/tmux"
     "${module}/shell"
     "${module}/git"
     "${module}/fastfetch"
@@ -41,54 +35,38 @@ in {
     homeDirectory = "/home/knakto";
     stateVersion = "24.11";
     packages = with pkgs; [
-      vscode
-      clang-manpages
-      jq
+      networkmanager
       google-chrome
       obsidian
-      nemo
-      paleta
-      networkmanagerapplet
-      libreoffice
-      openvpn
-      strongswan
-      xl2tpd
-      networkmanager-l2tp
-      nodejs_22
-      valgrind
-      networkmanager_dmenu
-      pipx
-      wayland-protocols
-      killall
-      nautilus
-      handlr
-      hyprshot
-      pciutils
-      libGL
-      gnumake42
-      cmake
-      docker
-      podman
-      devbox
-      gparted
-      clang
-      clang-tools
       vesktop
-      nixd
+      killall
+      handlr
+      nemo		#file manager
+      feh		#open picture
+      valgrind
+      pciutils	#lspci
+      gparted
       miru
+      xclicker
+      prismlauncher
+      lutris
+      wine
+      #--------------------------------#
+      wayland-protocols
+      wayland
+      hyprland
+      ripgrep
+      libGL
       htop
       btop
       curl
       tree
-      wine
-      ripgrep
+      #--------------------------------#
+      clang
+      nixd
       python3
-      hyprland
-      wayland
-      cargo
-      readline
-      xclicker
-      prismlauncher
+      pipx
+      nodejs_22
     ];
   };
 }

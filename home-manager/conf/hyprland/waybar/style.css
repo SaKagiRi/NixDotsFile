@@ -1,445 +1,223 @@
-@import "./macchiato.css";
-
 * {
-  border: none;
+font-family: "JetBrainsMono Nerd Font";
+
+font-weight: bold;
+min-height: 0;
+/* set font-size to 100% if font scaling is set to 1.00 using nwg-look */
+font-size: 95%;
+font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
 }
 
-window.bottom_bar#waybar {
-  background-color: alpha(@base, 0.7);
-  border-top: solid alpha(@surface1, 0.7) 2;
+
+
+window#waybar {
+    background: transparent;
+	border-radius: 5px;
+	color: whitesmoke;
 }
 
-window.top_bar#waybar {
-  background-color: alpha(@base, 0.7);
-  border-bottom: solid alpha(@surface1, 0.7) 2;
+window#waybar.hidden {
+    opacity: 0.5;
 }
 
-window.left_bar#waybar {
-  background-color: alpha(@base, 0.7);
-  border-top: solid alpha(@surface1, 0.7) 2;
-  border-right: solid alpha(@surface1, 0.7) 2;
-  border-bottom: solid alpha(@surface1, 0.7) 2;
-  border-radius: 0 15 15 0;
+window#waybar.empty,
+window#waybar.empty #window {
+    padding: 0px;
+    border: 0px;
+    background-color: transparent;
 }
 
-window.bottom_bar .modules-center {
-  background-color: alpha(@surface1, 0.7);
-  color: @green;
-  border-radius: 15;
-  padding-left: 20;
-  padding-right: 20;
-  margin-top: 5;
-  margin-bottom: 5;
+tooltip {
+	color: #cdd6f4;
+   background: #1e1e2e;
+	border-radius: 10px;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #11111b;
 }
 
-window.bottom_bar .modules-left {
-  background-color: alpha(@surface1, 0.7);
-  border-radius: 0 15 15 0;
-  padding-left: 20;
-  padding-right: 20;
-  margin-top: 5;
-  margin-bottom: 5;
+tooltip label {
+    color: #cdd6f4;
+    padding-right: 2px;
+    padding-left: 2px;
 }
 
-window.bottom_bar .modules-right {
-  background-color: alpha(@surface1, 0.7);
-  border-radius: 15 0 0 15;
-  padding-left: 20;
-  padding-right: 20;
-  margin-top: 5;
-  margin-bottom: 5;
-}
+/*-----module groups----*/
+.modules-right,
+.modules-center,
+.modules-left {
+	border-radius: 5px 5px 5px 5px;
+	background-color:#1e1e2e;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-right: 4px;
+	padding-left: 4px;	
+				}
 
-#user {
-  padding-left: 10;
-}
-
-#language {
-  padding-left: 15;
-}
-
-#keyboard-state label.locked {
-  color: @yellow;
-}
-
-#keyboard-state label {
-  color: @subtext0;
-}
-
-#workspaces {
-  margin-left: 10;
-}
-
+#taskbar button,
 #workspaces button {
-  color: @text;
-  font-size: 1.25rem;
+    color: #cba6f7;
+    background-color: #cdd6f4; 
+    padding: 0px 5px;
+    margin:4px 1px;
+    border-radius: 15px;
+    animation: gradient_f 20s ease-in infinite;
+    transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.682);
+    
 }
 
-#workspaces button.empty {
-  color: @overlay0;
-}
-
+#taskbar button.active,
 #workspaces button.active {
-  color: @peach;
+    color: #cba6f7;
+    border-radius: 15px;
+    background-color: #cdd6f4;
+    min-width: 40px;
+    background-size: 400% 400%;
+    opacity:1;
+    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
 }
 
-#submap {
-  background-color: alpha(@surface1, 0.7);
-  border-radius: 15;
-  padding-left: 15;
-  padding-right: 15;
-  margin-left: 20;
-  margin-right: 20;
-  margin-top: 5;
-  margin-bottom: 5;
+#workspaces button.focused {
+    color: #b4befe;
 }
 
-window.top_bar .modules-center {
-  font-weight: bold;
-  background-color: alpha(@surface1, 0.7);
-  color: @peach;
-  border-radius: 15;
-  padding-left: 20;
-  padding-right: 20;
-  margin-top: 5;
-  margin-bottom: 5;
+#workspaces button.urgent {
+    color: #11111b;
+    border-radius: 10px;
 }
 
-#custom-separator {
-  color: @green;
+#taskbar button:hover,
+#workspaces button:hover {
+    color: #b4befe;
+    border-radius: 15px;
+ 	padding-left: 2px;
+    padding-right: 2px;
+    animation: gradient_f 20s ease-in infinite;
+    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
 }
-
-#custom-separator_dot {
-  color: @green;
-}
-
-#clock.time {
-  color: @flamingo;
-}
-
-#clock.week {
-  color: @sapphire;
-}
-
-#clock.month {
-  color: @sapphire;
-}
-
-#clock.calendar {
-  color: @mauve;
-}
-
-#bluetooth {
-  background-color: alpha(@surface1, 0.7);
-  border-radius: 15;
-  padding-left: 15;
-  padding-right: 15;
-  margin-left: 2;
-  margin-top: 5;
-  margin-bottom: 5;
-}
-
-#bluetooth.disabled {
-  background-color: alpha(@surface0, 0.7);
-  color: @subtext0;
-}
-
-#bluetooth.on {
-  color: @blue;
-}
-
-#bluetooth.connected {
-  color: @sapphire;
-}
-
-#network {
-  background-color: alpha(@surface1, 0.7);
-  border-radius: 15;
-  padding-left: 15;
-  padding-right: 15;
-  margin-left: 2;
-  margin-right: 2;
-  margin-top: 5;
-  margin-bottom: 5;
-}
-
-#network.disabled {
-  background-color: alpha(@surface0, 0.7);
-  color: @subtext0;
-}
-
-#network.disconnected {
-  color: @red;
-}
-
-#network.wifi {
-  color: @teal;
-}
-
-#idle_inhibitor {
-  margin-right: 2;
-}
-
-#idle_inhibitor.deactivated {
-  color: @subtext0;
-}
-
-#custom-dunst.off {
-  color: @subtext0;
-}
-
-#custom-airplane_mode {
-  margin-right: 2;
-}
-
-#custom-airplane_mode.off {
-  color: @subtext0;
-}
-
-#custom-night_mode {
-  margin-right: 2;
-}
-
-#custom-night_mode.off {
-  color: @subtext0;
-}
-
-#custom-dunst {
-  margin-right: 2;
-}
-
-#custom-media.Paused {
-  color: @subtext0;
-}
-
-#custom-webcam {
-  color: @maroon;
-  margin-right: 3;
-}
-
-#privacy-item.screenshare {
-  color: @peach;
-  margin-right: 5;
-}
-
-#privacy-item.audio-in {
-  color: @pink;
-  margin-right: 4;
-}
-
-#custom-recording {
-  color: @red;
-  margin-right: 4;
-}
-
-#custom-geo {
-  color: @yellow;
-  margin-right: 4;
-}
-
-#custom-logout_menu {
-  color: @red;
-  background-color: alpha(@surface1, 0.7);
-  border-radius: 15 0 0 15;
-  padding-left: 10;
-  padding-right: 5;
-  margin-top: 5;
-  margin-bottom: 5;
-}
-
-window.left_bar .modules-center {
-  background-color: alpha(@surface1, 0.7);
-  border-radius: 0 15 15 0;
-  margin-right: 5;
-  margin-top: 15;
-  margin-bottom: 15;
-  padding-top: 5;
-  padding-bottom: 5;
-}
-
-#taskbar {
-  margin-top: 10;
-  margin-right: 10;
-  margin-left: 10;
-  margin-bottom: 10;
-}
-
-#taskbar button.active {
-  background-color: alpha(@surface1, 0.7);
-  border-radius: 10;
-}
-
-#tray {
-  margin-bottom: 10;
-  margin-right: 10;
-  margin-left: 10;
-}
-
-#tray>.needs-attention {
-  background-color: alpha(@maroon, 0.7);
-  border-radius: 10;
-}
-
-#cpu {
-  color: @sapphire;
-}
-
-#cpu.low {
-  color: @rosewater;
-}
-
-#cpu.lower-medium {
-  color: @yellow;
-}
-
-#cpu.medium {
-  color: @peach;
-}
-
-#cpu.upper-medium {
-  color: @maroon;
-}
-
-#cpu.high {
-  color: @red;
-}
-
-#memory {
-  color: @sapphire;
-}
-
-#memory.low {
-  color: @rosewater;
-}
-
-#memory.lower-medium {
-  color: @yellow;
-}
-
-#memory.medium {
-  color: @peach;
-}
-
-#memory.upper-medium {
-  color: @maroon;
-}
-
-#memory.high {
-  color: @red;
-}
-
-#disk {
-  color: @sapphire;
-}
-
-#disk.low {
-  color: @rosewater;
-}
-
-#disk.lower-medium {
-  color: @yellow;
-}
-
-#disk.medium {
-  color: @peach;
-}
-
-#disk.upper-medium {
-  color: @maroon;
-}
-
-#disk.high {
-  color: @red;
-}
-
-#temperature {
-  color: @green;
+#custom-panel,
+#battery,
+#backlight,
+#backlight-slider,
+#bbattery,
+#bluetooth,
+#clock,
+#cpu,
+#disk,
+#idle_inhibitor,
+#keyboard-state,
+#memory,
+#mode,
+#mpris,
+#network,
+#power-profiles-daemon,
+#pulseaudio,
+#pulseaudio-slider,
+#taskbar,
+#temperature,
+#tray,
+#cava,
+#window,
+#wireplumber,
+#workspaces,
+#custom-backlight,
+#custom-browser,
+#custom-cava,
+#custom-cycle_wall,
+#custom-file_manager,
+#custom-keybinds,
+#custom-keyboard,
+#custom-light_dark,
+#custom-lock,
+#custom-hint,
+#custom-hypridle,
+#custom-menu,
+#custom-power_vertical,
+#custom-power,
+#custom-settings,
+#custom-spotify,
+#custom-swaync,
+#custom-tty,
+#custom-updater,
+#custom-weather,
+#custom-weather.clearNight,
+#custom-weather.cloudyFoggyDay,
+#custom-weather.cloudyFoggyNight,
+#custom-weather.default, 
+#custom-weather.rainyDay,
+#custom-weather.rainyNight,
+#custom-weather.severe,
+#custom-weather.showyIcyDay,
+#custom-weather.snowyIcyNight,
+#custom-weather.sunnyDay {
+    color: #cdd6f4;
+    border-radius: 8px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 6px;
+	padding-left: 6px;
 }
 
 #temperature.critical {
-  color: @red;
+    background-color: #ff0000;
 }
 
-#battery {
-  color: @teal;
+@keyframes blink {
+    to {
+        color: #000000;
+    }
 }
 
-#battery.low {
-  color: @red;
+/*-----Indicators----*/
+#custom-hypridle.notactive,
+#idle_inhibitor.activated {
+	color: #39FF14;
 }
 
-#battery.lower-medium {
-  color: @maroon;
+#battery.critical:not(.charging) {
+    color: #f53c3c;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+#pulseaudio-slider slider {
+	min-width: 0px;
+	min-height: 0px;
+	opacity: 0;
+	background-image: none;
+	border: none;
+	box-shadow: none;
 }
 
-#battery.medium {
-  color: @peach;
+#pulseaudio-slider trough {
+	min-width: 80px;
+	min-height: 5px;
+	border-radius: 5px;
 }
 
-#battery.upper-medium {
-  color: @flamingo;
+#pulseaudio-slider highlight {
+	min-height: 10px;
+	border-radius: 5px;
 }
 
-#battery.high {
-  color: @rosewater;
+#backlight-slider slider {
+	min-width: 0px;
+	min-height: 0px;
+	opacity: 0;
+	background-image: none;
+	border: none;
+	box-shadow: none;
 }
 
-#backlight {
-  color: @overlay0;
+#backlight-slider trough {
+	min-width: 80px;
+	min-height: 10px;
+	border-radius: 5px;
 }
 
-#backlight.low {
-  color: @overlay1;
-}
-
-#backlight.lower-medium {
-  color: @overlay2;
-}
-
-#backlight.medium {
-  color: @subtext0;
-}
-
-#backlight.upper-medium {
-  color: @subtext1;
-}
-
-#backlight.high {
-  color: @text;
-}
-
-#pulseaudio.bluetooth {
-  color: @sapphire;
-}
-
-#pulseaudio.muted {
-  color: @surface2;
-}
-
-#pulseaudio {
-  color: @text;
-}
-
-#pulseaudio.low {
-  color: @overlay0;
-}
-
-#pulseaudio.lower-medium {
-  color: @overlay1;
-}
-
-#pulseaudio.medium {
-  color: @overlay2;
-}
-
-#pulseaudio.upper-medium {
-  color: @subtext0;
-}
-
-#pulseaudio.high {
-  color: @subtext1;
-}
-
-#systemd-failed-units {
-  color: @red;
+#backlight-slider highlight {
+	min-width: 10px;
+	border-radius: 5px;
 }

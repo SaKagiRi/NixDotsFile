@@ -6,22 +6,22 @@
   ...
 }: let
   bg_path = "${self}/home-manager/conf/hyprland/background";
-  w1 = "1148498.jpg";
-  w2 = "1148520.jpg";
+  w1 = "anime.jpg";
+  w2 = "20rq9u5ug7ye1.jpeg";
   w3 = "nix.jpg";
-  w4 = "1295677.png";
+  w4 = "wallpaperflare.com_wallpaper.jpg";
   w5 = "1355397.jpeg";
-  w6 = "77115862_p0_master1200.jpg";
-  w7 = "1386768.png";
-  w8 = "1386770.png";
-  w9 = "1386771.png";
-  w0 = "1356447.png";
+  w6 = "1386771.png";
+  w7 = "1148520.jpg";
+  w8 = "1363443.png";
+  w9 = "1356447.png";
+  w0 = "1148498.jpg";
   script = "${self}/home-manager/conf/hyprland/script";
 in {
   imports = [
     ./waybar
     ./hyprlock
-    ./rofi
+    ./luancher
   ];
 
   home.packages = with pkgs; [swww wlogout];
@@ -50,8 +50,8 @@ in {
       };
       general = {
         gaps_in = 14;
-        gaps_out = 12;
-        border_size = 3;
+        gaps_out = 9;
+        border_size = 2;
         layout = "dwindle";
         resize_on_border = true;
       };
@@ -91,7 +91,8 @@ in {
       };
       exec-once = [
         # "hyprlock || hyprctl dispatch exit"
-        #"waybar"
+        "waybar"
+        "swaync" #notification
         "${pkgs.swww}/bin/swww-daemon"
         "./script/change_wallpaper.sh"
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland"
@@ -162,7 +163,7 @@ in {
         "$mod SHIFT, M, fullscreen, 0"
         "$mod, F, togglefloating"
         "$mod, G, togglegroup"
-        "$mod, return, exec, rofi -show drun"
+        "$mod, return, exec, fuzzel --hide-before-typing --lines 3"
         # Move to workspace
         "$mod , A, workspace, r-1"
         "$mod , D, workspace, r+1"

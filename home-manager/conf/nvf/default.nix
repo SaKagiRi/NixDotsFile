@@ -171,39 +171,39 @@ in {
           comment-nvim.enable = true;
         };
         notes = {
-          obsidian = {
-            enable = true;
-            setupOpts = {
-              completion.nvim_cmp = true;
-              workspaces = [
-                {
-                  name = "braincell";
-                  path = "~/knakto/vaults/braincell";
-                }
-                {
-                  name = "work";
-                  path = "~/knakto/vaults/work";
-                }
-              ];
-              mappings = {
-                "gf" = ''
-                  action = function()
-                      return require("obsidian").util.gf_passthrough()
-                  end,
-                  opts = { noremap = false, expr = true, buffer = true },'';
-                "<leader>ch" = ''
-                  action = function()
-                    return require("obsidian").util.toggle_checkbox()
-                  end,
-                  opts = { buffer = true },'';
-                "<cr>" = ''
-                  action = function()
-                    return require("obsidian").util.smart_action()
-                  end,
-                  opts = { buffer = true, expr = true },'';
-              };
-            };
-          };
+        #   obsidian = {
+        #     enable = true;
+        #     setupOpts = {
+        #       completion.nvim_cmp = true;
+        #       workspaces = [
+        #         {
+        #           name = "braincell";
+        #           path = "~/knakto/vaults/braincell";
+        #         }
+        #         {
+        #           name = "work";
+        #           path = "~/knakto/vaults/work";
+        #         }
+        #       ];
+        #       mappings = {
+        #         "gf" = ''
+        #           action = function()
+        #               return require("obsidian").util.gf_passthrough()
+        #           end,
+        #           opts = { noremap = false, expr = true, buffer = true },'';
+        #         "<leader>ch" = ''
+        #           action = function()
+        #             return require("obsidian").util.toggle_checkbox()
+        #           end,
+        #           opts = { buffer = true },'';
+        #         "<cr>" = ''
+        #           action = function()
+        #             return require("obsidian").util.smart_action()
+        #           end,
+        #           opts = { buffer = true, expr = true },'';
+        #       };
+        #     };
+        #   };
           neorg.enable = false;
           orgmode.enable = false;
           mind-nvim.enable = true;
@@ -371,6 +371,13 @@ in {
             silent = true;
             desc = "copy to clipboard";
           }
+          {
+            key = "bd";
+            mode = ["n"];
+            action = ":bd";
+            silent = true;
+            desc = "Delete window";
+          }
         ];
         options = {
           smartindent = true;
@@ -432,10 +439,10 @@ in {
               })
             '';
           };
-          neogit = {
-            package = neogit;
-            setup = ''vim.keymap.set("n", '<C-g>', ":Neogit<CR>", { desc = "Neogit" })'';
-          };
+          # neogit = {
+          #   package = neogit;
+          #   setup = ''vim.keymap.set("n", '<C-g>', ":Neogit<CR>", { desc = "Neogit" })'';
+          # };
           oxocarbon-nvim = {
             package = oxocarbon-nvim;
             setup = ''
@@ -491,6 +498,27 @@ in {
                    mail = "knakto@student.42bangkok.com",
               });
             '';
+          };
+          fugitive = {
+            package = vim-fugitive;
+          };
+          conflict_marker = {
+            package = conflict-marker-vim;
+          };
+          git_conflict = {
+            package = git-conflict-nvim;
+            setup = ''require('git-conflict').setup()'';
+          };
+          telescope_git = {
+            package = telescope-git-conflicts-nvim;
+            setup = ''
+              require("telescope").load_extension("conflicts")
+              vim.keymap.set({"n", "v", "i"}, '<C-g>', ":Telescope conflicts<CR>", { desc = "conflict" })
+            '';
+            # [co] = — choose ours
+            # [ct] = — choose theirs
+            # [cb] = — choose both
+            # [c0] = — choose none
           };
           # obsidian = {
           #   package = obsidian-nvim;
