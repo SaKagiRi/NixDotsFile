@@ -12,9 +12,10 @@
     "com.spotify.Client"
     "com.mojang.Minecraft"
     "net.nokyan.Resources"
-    "org.vinegarhq.Sober"
+    # "org.vinegarhq.Sober"
   ];
 in {
+  services.flatpak.enable = true;
   environment.systemPackages = with pkgs; [
     inputs.nix-software-center.packages.x86_64-linux.nix-software-center
     flatpak
