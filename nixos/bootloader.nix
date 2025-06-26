@@ -32,8 +32,8 @@ lib,
     #   GRUB_TIMEOUT=5
     # '';
     theme = lib.mkForce (pkgs.stdenv.mkDerivation {
-      name = "grub-theme-kobo";
-      src = "${self}/assets/Kobo.tar.gz";
+      name = "grub-theme";
+      src = "${self}/assets/grubTheme/Rin.tar";
       installPhase = ''
         mkdir -p $out
         cp -r ./* $out/

@@ -74,6 +74,7 @@ in {
             enable = true;
             treesitter.autotagHtml = true;
           };
+          rust.enable = true;
         };
         visuals = {
           highlight-undo.enable = true;
@@ -374,7 +375,7 @@ in {
           {
             key = "bd";
             mode = ["n"];
-            action = ":bd";
+            action = ":bd<CR>";
             silent = true;
             desc = "Delete window";
           }

@@ -13,6 +13,7 @@ in {
       ./package.nix
       ./services.nix
       ./bootloader.nix
+      ./docker.nix
     ]
     ++ [
       "${module}/user"
@@ -21,7 +22,7 @@ in {
       "${module}/internationalisation"
       "${module}/stylix"
       "${module}/game"
-      "${module}/flatpak"
+      # "${module}/flatpak"
     ]
     ++ [
       "${module}/desktop-environment/${desktop-environment}"
@@ -67,7 +68,7 @@ in {
     hyprland
     home-manager
     osu-lazer-bin-latest
-    #flatpak
+    flatpak
     firefox
   ];
 

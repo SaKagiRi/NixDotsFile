@@ -3,7 +3,7 @@
   users.users.knakto = {
     isNormalUser = true;
     description = "Kasichon Nakto";
-    extraGroups = ["networkmanager" "input" "wheel" "video" "audio" "tss"];
+    extraGroups = [ "docker" "networkmanager" "input" "wheel" "video" "audio" "tss" ];
     shell = pkgs.zsh;
     packages = with pkgs; [
       spotify

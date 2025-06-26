@@ -29,12 +29,41 @@
 		"network#speed",
 		"tray",
 		"custom/separator#line",
+		"backlight",
 		"pulseaudio#microphone",
 		"pulseaudio",
 		"custom/separator#line",
 		"custom/panel",
 		"custom/notification"
 	],
+
+
+	"backlight": {
+		"format": "{icon}{percent}%",
+		"format-icons": [
+			"󰌶",
+			"󱩎",
+			"󱩏",
+			"󱩐",
+			"󱩑",
+			"󱩒",
+			"󱩓",
+			"󱩔",
+			"󱩕",
+			"󱩖",
+			"󰛨",
+		],
+		"tooltip": false,
+		"states": {
+			"low": 10,
+			"lower-medium": 30,
+			"medium": 50,
+			"upper-medium": 70,
+			"high": 90,
+		},
+		"scrolling": true,
+		"mouse-scrolling": true,
+	},
 
 
 	// CIRCLES Style

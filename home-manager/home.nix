@@ -51,6 +51,9 @@ in {
       prismlauncher
       lutris
       wine
+      docker
+      bear
+      gnumake
       #--------------------------------#
       wayland-protocols
       wayland
@@ -67,6 +70,7 @@ in {
       python3
       pipx
       nodejs_22
+      norminette
     ];
   };
 }

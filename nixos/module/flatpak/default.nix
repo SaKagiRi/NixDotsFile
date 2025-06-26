@@ -9,10 +9,10 @@
 
   # 1. Declare the Flatpaks you *want* on your system
   desiredFlatpaks = [
-    "com.spotify.Client"
-    "com.mojang.Minecraft"
-    "net.nokyan.Resources"
-    # "org.vinegarhq.Sober"
+    # "com.spotify.Client"
+    # "com.mojang.Minecraft"
+    # "net.nokyan.Resources"
+    "org.vinegarhq.Sober"
   ];
 in {
   services.flatpak.enable = true;
