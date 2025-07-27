@@ -17,6 +17,7 @@ in {
       "obsidian"
       "steam"
       "steam-unwrapped"
+      "unityhub"
     ];
   nixpkgs.config.allowBroken = true;
   imports = [
@@ -54,10 +55,10 @@ in {
       docker
       bear
       gnumake
+      unityhub
+      gnome-boxes
+      docker-compose
       #--------------------------------#
-      wayland-protocols
-      wayland
-      hyprland
       ripgrep
       libGL
       htop

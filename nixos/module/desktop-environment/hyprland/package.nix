@@ -1,5 +1,8 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
+    wayland-protocols
+    wayland
+    hyprland
     pyprland
     hyprpicker
     hyprcursor

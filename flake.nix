@@ -36,14 +36,8 @@
     lib = nixpkgs.lib;
     pkgs = nixpkgs.legacyPackages.x86_64-linux;
   in {
-    packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
-
-    packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
-
     package = import ./pkgs nixpkgs.legazyPackages.x86_64-linux;
-
     overlays = import ./overlays {inherit inputs;};
-
     homeConfigurations = {
       knakto = inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = pkgs;

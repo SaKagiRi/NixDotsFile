@@ -26,13 +26,16 @@ in {
 
   home.packages = with pkgs; [swww wlogout];
 
+  xdg.portal.enable = true;
+  xdg.portal.configPackages = [ pkgs.hyprland ];
   xdg.portal.extraPortals = with pkgs;
     [
+      xdg-desktop-portal-hyprland
       xdg-desktop-portal
       xdg-desktop-portal-gtk
     ]
     ++ [
-      inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
+      # inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
     ];
 
   wayland.windowManager.hyprland = {

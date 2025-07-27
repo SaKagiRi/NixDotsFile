@@ -68,7 +68,7 @@ in {
     hyprland
     home-manager
     osu-lazer-bin-latest
-    flatpak
+    # flatpak
     firefox
   ];
 
