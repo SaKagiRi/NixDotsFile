@@ -18,6 +18,7 @@ in {
       "steam"
       "steam-unwrapped"
       "unityhub"
+      "spotify"
     ];
   nixpkgs.config.allowBroken = true;
   imports = [
@@ -58,6 +59,8 @@ in {
       unityhub
       gnome-boxes
       docker-compose
+      spotify
+      spotify-cli-linux
       #--------------------------------#
       ripgrep
       libGL

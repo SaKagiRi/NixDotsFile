@@ -75,6 +75,10 @@ in {
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   hardware.opentabletdriver.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
 
   system.stateVersion = "24.05";
 }

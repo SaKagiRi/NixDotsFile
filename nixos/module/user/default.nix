@@ -6,7 +6,7 @@
     extraGroups = [ "docker" "networkmanager" "input" "wheel" "video" "audio" "tss" ];
     shell = pkgs.zsh;
     packages = with pkgs; [
-      spotify
+      # spotify
       #youtube-music
       #discord
       tdesktop
